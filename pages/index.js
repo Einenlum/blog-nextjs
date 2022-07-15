@@ -22,7 +22,7 @@ async function getArticles() {
         return {
             ...meta,
             publishedAt: meta.publishedAt.toDateString(),
-            link: meta.filename.replace('.mdx', '')
+            link: `articles/${meta.filename.replace('.mdx', '')}`
         }
     })
 
