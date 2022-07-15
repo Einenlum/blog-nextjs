@@ -9,7 +9,7 @@ const isActive = (link) => {
 
 function ActiveElement({text}) {
     return (
-        <li className="mx-3 md:mx-6 last:mr-0">
+        <li className="mx-3 md:mx-6 last:mr-0 md:text-lg">
             <span className="transition ease-in-out delay-150 text-gray-400">
                 {text}
             </span>
@@ -19,9 +19,9 @@ function ActiveElement({text}) {
 
 function InactiveElement({text, path}) {
     return (
-        <li className="mx-3 md:mx-6 last:mr-0 border-b-2 pb-1 border-dotted dark:border-gray-600">
+        <li className="mx-3 md:mx-6 last:mr-0 border-b-2 pb-1 border-dotted dark:border-gray-600 md:text-lg">
             <Link href={path}>
-                <a className="transition ease-in-out delay-150 hover:text-pink-700 hover:dark:text-blue-400">
+                <a className="transition ease-in-out delay-150 hover:text-pink-700 hover:dark:text-pink-600">
                     {text}
                 </a>
             </Link>

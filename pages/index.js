@@ -3,9 +3,11 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import ALink from '../components/a-link'
+import ArticlesContainer from '../components/index/articles-container'
+const fsPromises = fs.promises
 
 async function getArticles() {
-    const filenames = fs.readdirSync(process.cwd() + '/pages/articles')
+    const filenames = await fsPromises.readdir(process.cwd() + '/pages/articles')
 
     const getMeta = async filename => {
         const {meta} = await import(`./articles/${filename}`)
@@ -15,18 +17,16 @@ async function getArticles() {
 
     const metas = await Promise.all(filenames.map(filename => getMeta(filename)))
 
-    const sortedMetas = metas.sort((a, b) => {
-        return a.publishedAt - b.publishedAt
-    })
-    const displayableMetas = sortedMetas.map(meta => {
+    // Sort by last published
+    return metas.sort((a, b) => {
+        return b.publishedAt - a.publishedAt
+    }).map(meta => {
         return {
             ...meta,
             publishedAt: meta.publishedAt.toDateString(),
             link: `articles/${meta.filename.replace('.mdx', '')}`
         }
     })
-
-    return displayableMetas
 }
 
 export async function getStaticProps() {
@@ -46,10 +46,7 @@ export default function Home({ articles }) {
                 </Head>
 
                 <PageTitle>Einenlum's blog</PageTitle>
-
-                {articles.map((article) => (
-                    <p key={article.filename}><ALink href={article.link}>{article.articleTitle}</ALink></p>
-                ))}
+                <ArticlesContainer articles={articles}></ArticlesContainer>
             </Layout>
         </>
     )
