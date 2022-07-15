@@ -1,15 +1,34 @@
+import fs from 'fs'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 
-async function getArticles(pageIndex) {
-    return ['a', 'b']
+async function getArticles() {
+    const filenames = fs.readdirSync(process.cwd() + '/pages/articles')
+
+    const getMeta = async filename => {
+        const {meta} = await import(`./articles/${filename}`)
+
+        return {...meta, filename}
+    }
+
+    const metas = await Promise.all(filenames.map(filename => getMeta(filename)))
+
+    const sortedMetas = metas.sort((a, b) => {
+        return a.publishedAt - b.publishedAt
+    })
+    const displayableMetas = sortedMetas.map(meta => {
+        return {...meta, publishedAt: meta.publishedAt.toDateString()}
+    })
+    console.log(displayableMetas)
+
+    return displayableMetas
 }
 
 export async function getStaticProps() {
     return {
         props: {
-            articles: await getArticles(0),
+            articles: await getArticles(),
         },
     }
 }
@@ -22,7 +41,7 @@ export default function Home({ articles }) {
                     <title>Einenlum's blog</title>
                 </Head>
                 {articles.map((article) => (
-                    <p key={article}>{article}</p>
+                    <p key={article.filename}>{article.articleTitle}</p>
                 ))}
                 <PageTitle>Einenlum's blog</PageTitle>
             </Layout>
