@@ -1,0 +1,51 @@
+import Layout from '../../components/layout';
+import ArticleDate from '../../components/article-date';
+import ArticleHeader from '../../components/article-header';
+import ArticleInfos from '../../components/article-infos';
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'Lessons learned about Bus Factor (Part 5/5): Detect it before it is too late',
+    publishedAt: new Date(2017, 9, 1),
+}
+
+<ArticleInfos meta={meta} />
+
+_This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup_](https://twitter.com/bephpug)_. If you didn’t read the first one,_ [_here you go_](https://medium.com/@einenlum/lessons-learned-about-bus-factor-1-5-introduction-994b3b0332d3)_._
+
+In the past articles we wrote about the daily strategies you can set up to share knowledge, balance the level of your team and help anyone dive into your own code. It’s obviously essential to keep this issue in your mind on a daily basis. **But now, is there a way to detect the Bus Factor of your project? How do you know another member of your team or a new developer could easily take up the reins of your project?**
+
+![](https://miro.medium.com/max/1400/1*mZjQTRbwenEbBPjiQsq1WQ.jpeg)“[ThePollDiaries\_003\_BavariaFilmInternational](https://www.flickr.com/photos/berlinbeyond2011/6193336443/in/photolist-arht9P-6bccio-deyFCp-goYfGz-a3vxHU-9PMyNq-9jvL7v-bqSFuF-cWe4RS-4zorW-jZfnqA-6b7gHM-9PMUqy-97EFj2-8QqYWP-85MRJV-8Zucvt-asv2K9-6eEXa5-85HZC7-7vUZKA-9gthGv-pKSGNX-2L49ss-a7hPTR-pnkMNn-a71YyV-mVS2hg-4LAmEu-jH3fq3-5ZZGTg-9PMyeQ-b9vkRP-qc1mPd-8CPEYK-C969c-8eKo2C-9PMPCw-4RBbZz-8tEGSS-aEfkPp-9Xm5NB-nCzkRf-7w8fih-9Gdu5A-9GajMX-nmitMv-9Gawov-nmivWv-9G9YdP)” by Berlin Beyond
+
+This question is crucial, since **it is the kind of issue you generally detect when it is already too late** (remember my little story in the first article?). After a few fails, my colleagues and I didn’t want only to prevent these bad experiences in the future, but also to detect the projects where this could happen again.
+
+A year ago, during a hackathon, it led to a productive discussion between all the devs of my company. We ended up with a funny idea. **Here is what we do, about every two weeks or every month.**
+
+The Bus Factor Review
+=====================
+
+Take a project. Then **take all the developers of your company who never worked on this project**. Only them. And you choose one of them, randomly.  
+**Their goal is to** take about an hour or two, to clone your git repository, to install the project on their machine, and to **understand the domain, and some implementation.** They can’t have any help from another developer. **They can only rely on what is written in the repository**. If they find something to say (installation problems, obscure domain, strange and not documented architecture…), they open a Github issue and list the problems.
+
+**Trust me, at first, some developers cannot even install the project, b**ecause there is for example a mandatory parameter that was forgotten in the Readme. In this case, they just stop right there and write an issue. Then, two weeks later, you take another developer and he or she does the exact same thing. **The idea is to detect things that are only said orally** and not documented in the repository. By doing it regularly in an iterative way, it does not take a lot of time, and it can help you detect a lot of implicit things.
+
+When you do this review, the idea is to imagine if someone wants you to add a new feature or to debug something in this project you don’t know. **Would you be at ease to fix a bug or add a new feature in this project? If not, why?** What is this unusual pattern you don’t understand? What are these classes that are very badly named? Are the tests explicit enough?
+
+We all know that we tend to delay refactoring or writing documentation. “_Yeah, later_”_._ **We like to imagine ourselves in the last days of the project, cleaning everything that is dirty, writing a wonderful and explicit documentation, before we leave it to the client.** Oh, come on. Be honest. **It never happens this way**, because _1/_ the last days of a project are in general stressful (because you’re close to a deadline or to the end of a budget) and _2/_ because you don’t remember all the “_wtf_” implementations that would be obscure to a new comer. You got used to it. Testing regularly your project with a new look will force you to improve the quality of your code and documentation during the coding process. Moreover, the fact that different new people look at it will obviously help detecting various problems (every developer is not disconcerted by the exact same things).
+
+To summarize
+============
+
+*   Do systematic code reviews
+*   Give complex tasks also to the juniors but help them
+*   Stay close to the domain of your client
+*   Use high level tests reflecting your domain
+*   Write explicit code
+*   Detect a lack of shared knowledge as soon as possible, and write down everything in your repository/code. Stop this oral culture: act as if your private project was an open source project on which every unknown developer should be able to collaborate
+
+That’s it! I hope this series will help you in some ways. If you agree or disagree with a statement or use other techniques to increase the Bus Factor, please let me know! All comments are highly appreciated :).
+
+_(Special thanks to Shivoham, Amandine and Cécile for their ideas and proofreading)_
+
+</Layout>

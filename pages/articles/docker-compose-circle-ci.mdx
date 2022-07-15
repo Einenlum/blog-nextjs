@@ -1,0 +1,52 @@
+import Layout from '../../components/layout';
+import ArticleDate from '../../components/article-date';
+import ArticleHeader from '../../components/article-header';
+import ArticleInfos from '../../components/article-infos';
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'Testing your app with docker-compose on CircleCI',
+    publishedAt: new Date(2018, 9, 2),
+}
+
+<ArticleInfos meta={meta} />
+
+
+As a dev, you use docker as a dev environment. You’re quite happy that you finally ended mastering it (or at least make it work \\o/). Since you’re a great developer, you know the importance of automated testing, and you wrote a bunch of specs or features to test. You made everything work locally thanks to a few docker-compose commands. Maybe you’re thinking now that it could be awesome to even automate the process of launching those tests, by delegating this process to a CI, that will listen to your Github events, and send you back a green or red dot on your Pull Request’s page.
+
+![](https://miro.medium.com/max/1400/1*kujAbDF4Af329ybn5BxEjQ.jpeg)
+
+Since you used CircleCI a few years ago, since they claim it’s easy to use with docker and since they provide a free plan, you think you’re gonna make it standing on your head. Well, let me tell you that it can be quite a pain in the a\*\* if you don’t have the right instructions, and the documentation is quite awful when it comes to using it with docker-compose. Fortunately, it can be very easy when you get the right options to use in the config.
+
+Let’s dive into it!
+===================
+
+After having created your CircleCI account and connected it to your repository, you will have a sample config file given by CircleCI. It may look like this (hum…):
+
+Well, that’s quite intimidating. At least there is the \`docker\` keyword, so you think you’re going in the right direction. Let me tell me you’re wrong.
+
+Actually, this \`docker\` keyword means your CircleCI build will be launched in a docker container instead of a Linux VM. After reading the whole documentation, you realize that you have to use a Linux VM to be able to use docker-compose with volumes (link: [https://circleci.com/docs/2.0/executor-types/](https://circleci.com/docs/2.0/executor-types/) ).
+
+So let’s create a new config file, step by step.
+
+So we have a very basic install. Nice. Let’s add a checkout of the repository.
+
+Docker-compose is by default installed on the Linux VM provided by CircleCI. We can directly build and up our containers.
+
+Now you can install the dependencies of your project. Here we have node (yarn) and PHP (composer) dependencies.
+
+Now we can run our tests!
+
+Tada! An extra bonus? Let’s say you do some End2End testing and you take some screenshots when a test failed… Maybe you want to be able to access the screenshot (or log file) from the CircleCI interface? You can add a directory as an \`artifact\`. This will be then available in the \`artifacts\` link above your tests.
+
+So cool! Now you have a CI running with docker-compose, using your dev environment. Pretty swag.  
+Now, some of you may encounter permissions problems because of the users. This can be because CircleCI uses a user with id \`1001\` and a group with id \`1002\`. Sometimes in can conflict with your local permissions (your local user being \`1000\` in general). If so, you can specify the user that will launch the docker command.
+
+I hope this article helped you to make this small green dot appear on your PRs :).
+
+_(Using Gitlab? See_ [_here_](https://medium.com/@einenlum/a-free-ci-using-docker-compose-for-your-gitlab-repositories-f1289e059a77)_)_
+
+_Image credits:_ [_“Bricks in circle” by Alessandro Mancini_](https://www.flickr.com/photos/ingens/8882619935/)
+
+</Layout>

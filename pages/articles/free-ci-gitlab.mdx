@@ -1,0 +1,41 @@
+import Layout from '../../components/layout';
+import ArticleDate from '../../components/article-date';
+import ArticleHeader from '../../components/article-header';
+import ArticleInfos from '../../components/article-infos';
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'A free CI (using Docker-Compose) for your Gitlab repositories?',
+    publishedAt: new Date(2018, 9, 4),
+}
+
+<ArticleInfos meta={meta} />
+
+
+
+If you’re like me, you use Github for public repositories and for private repositories owned by organizations, but for your own private repositories, you use Gitlab. Indeed, Gitlab offers free unlimited private repositories and does the job.
+
+![](https://miro.medium.com/max/1400/1*UpEU7VjL87DbgUPiDxzTnA.jpeg)
+
+After having pushed a lot of commits, you decide that it could be really nice to automate your tests everytime a Merge Request (yes, Merge Request. We’re talking Gitlab language here) is created.
+
+Then you think that you could use CircleCI as you do for your Github repositories, [especially since you know how to use docker-compose on it](https://medium.com/@einenlum/testing-your-app-with-docker-compose-on-circleci-ffd4cc8e2cfa). You log into your CircleCI account, go to the integration page, and realize [Gitlab integration is missing](https://circleci.com/integrations/). Github is there, as well as Bitbucket, but no Gitlab in the area. Shit. [You can still upvote the idea of a Gitlab integration on the CircleCI website](https://circleci.com/ideas/?idea=CCI-I-248), but until they decide to change things, you’re stuck.
+
+You decide to list all the free CI services that can work with Gitlab and match your expectations. And then you realize that Gitlab offers a CI service. [After having read all the not clear at all advertised features on the website](https://about.gitlab.com/features/gitlab-ci-cd/) (**to Gitlab’s commercials: you have a nice product, we just don’t realize how cool is your offer since everything is so fuzzy on your website. It’s a shame**) you start to think that maybe they offer a free CI even for people using free private repositories on the Community Edition. It seems it is limited to 2000 build minutes per month, which is frankly a very generous deal. Our question today is more precise: is it possible to use docker-compose to build the whole stack and run your tests in the CI? Yup.
+
+First, the (very bad…) documentation says you need to enable some shared runners, but in my case it was already done by default, so I guess you don’t need to do it either. Next.
+
+Now we just need to create a \`.gitlab-ci.yml\` file in the root directory of our project. [This is quite documented for the general use](https://docs.gitlab.com/ce/ci/yaml/), but there is no track of docker-compose in the documentation. It seems we just need to install it as a python package ([thank you Stack Overflow!](https://stackoverflow.com/a/42697808/3524372)) and then we can use it. We also need to use some obscure image:docker and docker:dind services. Well, if it works, why not.
+
+Quite easy actually. I just had some issue (that I don’t have locally or on CircleCI) with the interactive TTY while executing \`docker-compose exec\`. Maybe because the version used by pip is [the one adding a regression](https://github.com/docker/compose/issues/5696#issue-299103105)? I dunno. Anyway, you can fix the issue by adding a \`-T\` tag to your commands.
+
+This should do the trick. Hope it helped. Happy testing.
+
+**_Update_**: Actually, maybe I spoke too fast…  
+**I have an issue with the network. Containers cannot communicate with each others… Maybe I can play with the network options (network\_mode?).  
+If a docker expert is here, I would love some help :)**
+
+_Image by_ [_Paradasos_](https://www.flickr.com/photos/paradasos/7234825030/) _(CC by/nc)_
+
+</Layout>

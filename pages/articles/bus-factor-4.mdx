@@ -1,0 +1,64 @@
+import Layout from '../../components/layout';
+import ArticleDate from '../../components/article-date';
+import ArticleHeader from '../../components/article-header';
+import ArticleInfos from '../../components/article-infos';
+
+<Layout>
+
+
+export const meta = {
+    articleTitle: 'Lessons learned about Bus Factor (Part 4/5): Stay close to the domain',
+    publishedAt: new Date(2017, 8, 30),
+}
+
+<ArticleInfos meta={meta} />
+
+
+_This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup_](https://twitter.com/bephpug)_. If you didn’t read the first one,_ [_here you go_](https://medium.com/@einenlum/lessons-learned-about-bus-factor-1-5-introduction-994b3b0332d3)_._
+
+![](https://miro.medium.com/max/1400/1*DobtLksArQBUEeB-qMA2dw.jpeg)“_The Entire City_” by Max Ernst
+
+Last time we saw how we could refactor code in a simple way to make it more obvious. We did not talk yet about your client’s domain. Maybe we should have done that in the first place.
+
+Stay close to the domain
+========================
+
+When you create a website for a client, you initially don’t know their job. It can be about printing, banking, shipping stuff… whatever. You’re not an expert of these fields. Even if you have knowledge in those, every company has their own vocabulary, processes and issues. **Your first concern, when building a great application that is maintainable, should always be to understand the domain of your client.** Not only do you have to understand it, but it’s even better if you use the exact same words they use. This is called **_ubiquitous language_**, and it’s a common concept in _Behavior Driven Development_ and in _Domain Driven Design_. Using the same vocabulary as your client will avoid you wasting a lot of time translating what they are talking about. If you don’t know _Ubiquitous language,_ you can check [this nice article](http://www.jamesshore.com/Agile-Book/ubiquitous_language.html) presenting this concept. Here are a few quotes from it, that summarize the key points, in my opinion.
+
+> You can name your classes, methods, and variables anything. Why not use the terms that your domain experts use?  
+> \[…\]  
+> _\[Ubiquitous language\]_ is reflecting in code how the users of the software think and speak about their work.  
+> \[…\]  
+> Programmers should speak the language of their domain experts, not the other way around.
+
+**Sometimes you will even realize that your client has not a clear vocab for a few things.** Help them then, to find the best term to describe something and to keep always this same word as THE word. When you made all this work of understanding and translating your client language, please, **write it down in a glossary**. It can be in a _Github_ wiki, or maybe better, directly in markdown pages put in the _doc_ section of your repository. **Write there, all the important concepts of your client.** What is a _retailer_? What is a _customer_? How is defined an _invoice_? What defines a _license_ and what is it used for? If your client does not speak english, write the matching between their terms and the terms used in the app (because yes, you will write your code in english. That should be obvious).
+
+This is a really important tool to help a new developer to understand the domain and its implementation in the code. Actually, **if you write explicit code and stay as close as possible to the domain, a salesperson with no coding knowledge should be able to read your code and tell you if you’re implementing the logic in a good way**. It’s not always possible I got it. But **that should be your ultimate goal.**
+
+Writing tests is also writing documentation
+===========================================
+
+It’s quite obvious that tests will help you improve the quality of your code and avoid bugs. Great. But **tests can also be a great way to help a developer dive into your project**. **The first thing I check when I dive into a new project, is the presence of functional tests.** That can make you understand very quickly what this application is about and what it does. And then, if I want to understand more in detail what different classes do, I can check unit tests. As a PHP developer I like to use [Behat](http://behat.org/en/latest/) (a kind of Cucumber-like for those who are familiar with it), a simple test runner allowing you to describe _scenarios_ in a human readable language called _Gherkin_. Here is how it looks like:
+
+Every _feature_ is a list of _scenarios_, describing a specific user journey. _Given_ and _When_ statements describe an action. _Then_ statements decribe an expected result (what we also call an _assertion_). Behat (or any Cucumber-like tool) will parse these _\*.feature_ files and launch your scenarios one after another, by translating all these Given, When, Then, into concrete code you implemented. Behat will do that thanks to PHP annotations, but the other tools and language implementations are very similar.
+
+These tools are just test runners that let you free to write very explicit and simple tests scenarios, that every human understands. **This allows you to write these scenarios with your non-dev client when they ask you to do a new feature, and to help any new comer in the project to understand what the application is about.** Cucumber-like tools and Gherkin are amazing to clarify your project.
+
+The problem is that these tools allow you to do many **many** things, from scratch. Like manipulating a browser with already written Gherkin definitions. So usually, when looking at Behat tests, here is the kind of scenarios you could find in many projects.
+
+Sure, it describes something. But it does not describe your domain. It describes a user journey thanks to a user interface, without really explaining the business rules.
+
+First, since it is totally coupled to the user interface, what happens if you’re working on a foreign project? Maybe you will start to see these kinds of things:
+
+Wuuuh. Ugly. As a french developer I can assure you it’s a quite common thing to see. But the most serious problem here, is that **you lose the main topic of documentation you should care about: the domain of your client.** Gherkin is a great tool, if you only describe the goal of the application in domain terms, without worrying at all about the concrete technical implementation. This scenario could be implemented with a classical website, a JSON Rest API, or a simple CLI. That is not our problem here. **We want to describe where and why your mean of transportation is driving you. Not the colour of your car.** Here is how we could describe our feature instead:
+
+How is it implemented? HTTP? Shell? Whatever. We don’t care on this level. Here you can really describe the business logic of your app, and check with your client if you really understood the additional value of their project. What’s even greater, is that **it allows you to test the same scenario in different ways** **(end-to-end test with Selenium, infrastructure tests on the application layer…)**: these tools allow you to _tag_ (_@ui_ or _@integration_, for example)  your features and scenarios and send these features to different layers of testing.
+
+For those who want to go further, **I really advise you the article “**[**_Introducing Modelling by Example_**](http://stakeholderwhisperer.com/posts/2014/10/introducing-modelling-by-example)**”** by [_everzet_](https://medium.com/u/966f5e8d0a64?source=post_page-----b0d315195678--------------------------------) (the creator of Behat) which explains much better and deeper what I just said (among other things). Also, if you want to know how it looks like to use Behat (or any Cucumber-like tool) the wrong way, I encourage you to read “[_Stop Simulating BDD, Write Tests_](http://codeception.com/12-20-2012/not-bdd.html)” from _Codeception’s_ blog (Codeception is another PHP test framework). Don’t get me wrong: I’m not saying Codeception is a bad tool or that Behat is necessarily better (I never worked with Codeception). I’m just saying the given arguments show a total misconception of the tool. This article shows the worst way to use Behat, so in the end we could say it’s a great article because it’s very instructive.
+
+**Staying as close to the domain as possible, and documenting the main goals of your app in a business language will help _anyone_ to dive into your project and understand right away why all this has been built.**
+
+[In the next (and final) article](https://medium.com/@einenlum/lessons-learned-about-bus-factor-part-5-5-detect-it-before-it-is-too-late-adbb1784078f), we will think about how we can detect a Bus Factor issue as quick as possible.
+
+
+</Layout>

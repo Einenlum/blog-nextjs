@@ -1,0 +1,52 @@
+import Layout from '../../components/layout';
+import ArticleDate from '../../components/article-date';
+import ArticleHeader from '../../components/article-header';
+import ArticleInfos from '../../components/article-infos';
+
+<Layout>
+
+export const meta = {
+    articleTitle: '# Lessons learned about Bus Factor (Part 3/5): Write explicit code',
+    publishedAt: new Date(2017, 8, 29),
+}
+
+
+<ArticleInfos meta={meta} />
+
+
+_This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup_](https://twitter.com/bephpug)_. If you didn’t read the first one,_ [_here you go_](https://medium.com/@einenlum/lessons-learned-about-bus-factor-1-5-introduction-994b3b0332d3)_._
+
+Write explicit code
+===================
+
+Last time we talked about the strategies you could set up to share knowledge within your current coding team. It’s great, but it would be even better to help _anyone_ to read your code and understand your implementation right away. **Let’s dive into some concrete code.**
+
+Let’s say you are new on a project and you have to add a new feature in this part of PHP code below. **I know, it’s PHP. But don’t leave. It’s a basic one, and even if you hate that language, it should not be a problem to understand what is going on. These considerations should apply to almost any language and code.** This is a dummy example I wrote, to reflect the kind of usual bad code you can find when you join a random project.
+
+**Try to understand what this code is about, in a few seconds.**
+
+![](https://miro.medium.com/max/1400/1*Wq_cLSGvG_Hvu8mbD0HQyA.jpeg)“[_Juventae Chasma_](https://www.flickr.com/photos/europeanspaceagency/11337951926/in/album-72157623547766194/)” by European Space Agency
+
+Ok, I think you got it: Mars has beautiful landscapes, and the previous code is about calculating shipping fees. But that was not so obvious to get, and still, it is a very simple and short class. Imagine how it can feel for a newcomer in your project if there are hundreds of classes like this, and five times as long as this one.
+
+**Let’s try to clarify that.**
+
+First, **the naming is very bad.** “_Service_” does not mean anything and the method name is not explicit enough. We rename the namespace, the class and the method _(l. 3, 5, 14)_:
+
+Better. Now the next problem is that **a _Calculator_ should calculate and return a value**. Here, it calculates and sets the value to an object. This is misleading, and multiplies the responsibilities of the class. It also finds the _Cart_ object from a repository: it is quite hard to defend the injection of a repository in this simple _Calculator_ class. **Let’s directly pass a _Cart_ object as parameter (allowing an explicit _typehint_) and just return the calculated value** _(l. 9, 29)_.
+
+**This _if/elseif_ is confusing** and takes too much of my energy to follow. Let’s get rid of that _(l. 21–29)_:
+
+I feel better already. **This calculation of the total of the cart could be the responsibility of the model.** Then let’s get rid of it too, and add an explicit method name so that we know what total we are talking about (because yes, **when calculating prices, knowing if we include VAT or not can be interesting**) _(l.13)_:
+
+I still have an issue here. **What are all these magical numbers? 20? 40? 100?** If you are new to the project, chances are that you will be a bit afraid to change one of them and will ask to your client or your colleagues what they actually mean. If they are supposed to change, we inject them as parameters with clear variable names. If they are not, then **we can use constants** _(l. 9–11, 17, 22, 25)_:
+
+This could look a bit overkill to use constants here, but it will help for sure any new comer to the project to understand right away what is going on. Even better: **if you have a question about these numbers, you can directly ask your client about the “_threshold for free shipping fees_”** instead of making them guess about this “_100 number_” that could be anything in the app. Finally **it allows you to centralize these informations somewhere and reuse them in the app**, avoiding you some headaches while refactoring.
+
+This is way better. But I still have a last issue here. I guess these numbers are some money. **But with what currency are we working here?** Euros? Dollars? Yen? If you clarify this right away, that will prevent every developer from being lost when the app is growing. For this, we can use the [Money library](https://github.com/moneyphp/money) which implements [Martin’s Fowler Money pattern](https://martinfowler.com/eaaCatalog/money.html). We also add a _return typehint_, since we can do it since PHP 7.1 _(l.5, 14, 18–26)_:
+
+If it is maybe as verbose as the initial code, I think this code is much easier to read, to understand and to maintain. **You understand right away what we are talking about and what it does, without the need of any comment.** This will also (in my opinion) **help a lot of new comers in your project to dive into your code and be able to refactor or maintain any class.** It will **avoid** the team to waste time with **infinite questions, since the code is self-documented.** This is obviously a very simple example I took for the purpose of this article, but I think this way of refactoring and writing explicit code can apply to much fatter classes. Also this _Calculator_ is a dummy example: we could (should?) do that directly in the model instead of instantiating a service for this simple task. Once again, it was just a straightforward example to show a few common problems we can find on a daily basis.
+
+[Next time](https://medium.com/@einenlum/lessons-learned-about-bus-factor-part-4-5-stay-close-to-the-domain-b0d315195678), we will talk about one of the most important issues when lacking of knowledge sharing: **the domain**.
+
+</Layout>

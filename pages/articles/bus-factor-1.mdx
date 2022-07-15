@@ -1,0 +1,43 @@
+import Layout from '../../components/layout';
+import ArticleDate from '../../components/article-date';
+import ArticleHeader from '../../components/article-header';
+import ArticleInfos
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'Lessons learned about Bus Factor (1/5): Introduction',
+    publishedAt: new Date(2017, 8, 27),
+}
+
+<ArticleInfos meta={meta} />
+
+
+_This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup_](https://twitter.com/bephpug)_._
+
+Let me share with you a little story of mine.
+
+About 2 years ago, I was working on a quite complex project to create a marketplace from scratch. We were two on the job, and my colleague was a much more experienced developer than I was. We finally made this app and released it. A few months after that, we had a bug in production concerning catalog importation, involving a complex system working with _RabbitMQ_ and _Elasticsearch_. I had never touched that part of code. And my colleague was on holidays. I was designated to fix it. Cause you know… “**_you worked on this project, right?_**”. Sure.
+
+The reality is that I didn’t know at the time how all this worked and I found myself completely lost and panicked to understand all this stack. In the end, I didn’t manage to fix that bug. It led to frustration, stress and loss of confidence from myself, my colleagues and my client. That was a **horrible** experience.
+
+**Sounds familiar to you? If so, this series of articles is for you.**
+
+Bus Factor?
+===========
+
+![](https://miro.medium.com/max/1200/1*0HUoKENWDPkvQYBR31m6og.jpeg)“[Bus accident on Empire Way, 1933](https://www.flickr.com/photos/seattlemunicipalarchives/3797940793/in/photolist-6MBrtP-jCkPQA-Pg1wM-6w5ojz-4S3mXh-Pfumb-Pfumh-8Tk1KJ-g4Wxfq-o9rTmn-4CgbzH-4Cgbt6-7nc8tZ-4RYcEg-npSWRM-viWdm9-Pg1x4-TK3nj7-7NSPXP-9qUgQS-5ZTghs-4RYufn-8Qcfhi-ADuSK-9t9gFc-Pg1x8-9t9ifz-Pg144-cTEXp9-7yKiEj-gGzaeE-aEBvcp-4XJsbd-7NWMFN-Pfsgo-Pg142-4Rpopg-6YZVae-6Z4C5J-WHFT-WHFR-4ncFVs-4t3rAA-5icH3G-UCLwzN-8QfVf7-4S3kw7-7BB4Fs-UC1hvP-fTchtM)” by Seattle Municipal Archives
+
+You can find several slightly different definitions of the _Bus Factor_ on the web. Let’s make a patchwork.
+
+> The bus factor is the total number of developers who would need to be incapacitated, as by getting hit by a bus, so that the project would be left for dead.
+
+In other words, **the bus factor estimates the number of developers that are vital to a project**, for any reason (lack of understanding of their implementation or information withholding). If those developers are gone (on holidays, fired, or just away), no one is able to maintain the project or to add new features anymore. In technical terms, that could be considered as **detecting the _single point of failure_ within the team.**
+
+This little thought experiment can help you to detect this kind of situation before it happens. If you have a bus factor of 1 (which means that with just one developer away, your team does not feel like it can maintain the project), then you have a serious problem. **The goal is to increase this bus factor to the maximum and share knowledge so that you can prevent your project from falling apart.**
+
+**In this series of articles, I will try to give you a few lessons I learned about knowledge sharing within your coding team, and also _outside_ your coding team.** Because you would like all your colleagues (even the ones working on different projects) to be able to help you at one point. Or just because it also applies for when your client decides to put their own developers on the project. You don’t want them to be stuck and to contact you every two weeks. Even if they don’t contact you, you don’t want other developers to feel the same way as I did (because you’re a good person. I know it). In the very next article I will present the essential ways of sharing knowledge _inside_ your team. This will be followed by two other articles about strategies that apply for every developer outside your team, and finally by a bonus article about detecting as soon as possible a _Bus Factor_ issue.
+
+**Next is available** [**here**](https://medium.com/@einenlum/lessons-learned-about-bus-factor-2-5-balancing-the-level-of-your-team-97d9157eba99)**.**
+
+</Layout>
