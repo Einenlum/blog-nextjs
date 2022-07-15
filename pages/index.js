@@ -2,6 +2,7 @@ import fs from 'fs'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
+import ALink from '../components/a-link'
 
 async function getArticles() {
     const filenames = fs.readdirSync(process.cwd() + '/pages/articles')
@@ -18,9 +19,12 @@ async function getArticles() {
         return a.publishedAt - b.publishedAt
     })
     const displayableMetas = sortedMetas.map(meta => {
-        return {...meta, publishedAt: meta.publishedAt.toDateString()}
+        return {
+            ...meta,
+            publishedAt: meta.publishedAt.toDateString(),
+            link: meta.filename.replace('.mdx', '')
+        }
     })
-    console.log(displayableMetas)
 
     return displayableMetas
 }
@@ -40,10 +44,12 @@ export default function Home({ articles }) {
                 <Head>
                     <title>Einenlum's blog</title>
                 </Head>
-                {articles.map((article) => (
-                    <p key={article.filename}>{article.articleTitle}</p>
-                ))}
+
                 <PageTitle>Einenlum's blog</PageTitle>
+
+                {articles.map((article) => (
+                    <p key={article.filename}><ALink href={article.link}>{article.articleTitle}</ALink></p>
+                ))}
             </Layout>
         </>
     )
