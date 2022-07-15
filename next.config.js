@@ -4,4 +4,20 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    // If you use `MDXProvider`, uncomment the following line.
+    // providerImportSource: "@mdx-js/react",
+  },
+})
+
+const config = withMDX({
+  ...nextConfig,
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+})
+
+module.exports = config
