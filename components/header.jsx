@@ -3,7 +3,6 @@ import HeaderElement from './header-element'
 export default function Header() {
     const elements = [
         { text: 'Blog', path: '/' },
-        { text: 'Search', path: '/search' },
         { text: 'About', path: '/about' },
     ]
 
