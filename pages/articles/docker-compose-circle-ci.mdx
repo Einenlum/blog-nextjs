@@ -1,5 +1,5 @@
-import Layout from '../../components/layout';
-import ArticleInfos from '../../components/article-infos';
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
 
 <Layout>
 
@@ -10,15 +10,13 @@ export const meta = {
 
 <ArticleInfos meta={meta} />
 
-
 As a dev, you use docker as a dev environment. You’re quite happy that you finally ended mastering it (or at least make it work \\o/). Since you’re a great developer, you know the importance of automated testing, and you wrote a bunch of specs or features to test. You made everything work locally thanks to a few docker-compose commands. Maybe you’re thinking now that it could be awesome to even automate the process of launching those tests, by delegating this process to a CI, that will listen to your Github events, and send you back a green or red dot on your Pull Request’s page.
 
 ![](https://miro.medium.com/max/1400/1*kujAbDF4Af329ybn5BxEjQ.jpeg)
 
 Since you used CircleCI a few years ago, since they claim it’s easy to use with docker and since they provide a free plan, you think you’re gonna make it standing on your head. Well, let me tell you that it can be quite a pain in the a\*\* if you don’t have the right instructions, and the documentation is quite awful when it comes to using it with docker-compose. Fortunately, it can be very easy when you get the right options to use in the config.
 
-Let’s dive into it!
-===================
+# Let’s dive into it!
 
 After having created your CircleCI account and connected it to your repository, you will have a sample config file given by CircleCI. It may look like this (hum…):
 

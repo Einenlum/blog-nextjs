@@ -1,15 +1,15 @@
-import Layout from '../../components/layout';
-import ArticleInfos from '../../components/article-infos';
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
 
 <Layout>
 
 export const meta = {
-    articleTitle: 'Lessons learned about Bus Factor (2/5): Balancing the level of your team',
+    articleTitle:
+        'Lessons learned about Bus Factor (2/5): Balancing the level of your team',
     publishedAt: new Date(2017, 8, 28),
 }
 
 <ArticleInfos meta={meta} />
-
 
 _This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup_](https://twitter.com/bephpug)_._
 
@@ -17,29 +17,27 @@ _This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup
 
 This cute kitten has absolutely nothing to do with _Bus Factor,_ **unlike** [**the first post of this series**](https://medium.com/@einenlum/lessons-learned-about-bus-factor-1-5-introduction-994b3b0332d3)**.** Now we’re here, let’s dive into the lessons I learned about how to share knowledge _inside your current coding team_.
 
-Code Reviews
-============
+# Code Reviews
 
 I know this one is a big classic in the industry, but I think it is always good to emphasize it as a general advice. **In my company we automatically do a code review for every feature or every fix. You can’t merge your own pull requests.**
 
 **Why that?**
 
-*   First, it’s obviously a question of **quality of code**. Code reviews help detecting bugs and prevent bad implementations.
-*   Second, it will teach you new ways to code, or to solve a problem and it will **ensure that at least another developer has seen what is going on in this part of the application** (if your application is growing fast, there is a chance you don’t keep track of important changes or implementations).
-*   And finally, a part that seems really important to me: it helps **reducing tensions within the team**. If you introduced a bug in the app, you’re not the only one responsible for it. _The whole team_ is responsible. This way you can’t tell “_This guy or this girl did that_”. The one who merges it is equally responsible. _You will then_ **share failures and victories together**. I do trainings sometimes and I am always shocked by how the coding and merging process can influence on the global ambiance. **A mandatory code review process does not ensure by itself a friendly and united team. But no process at all with no shared responsibility between developers guarantees tensions, for sure.**
+-   First, it’s obviously a question of **quality of code**. Code reviews help detecting bugs and prevent bad implementations.
+-   Second, it will teach you new ways to code, or to solve a problem and it will **ensure that at least another developer has seen what is going on in this part of the application** (if your application is growing fast, there is a chance you don’t keep track of important changes or implementations).
+-   And finally, a part that seems really important to me: it helps **reducing tensions within the team**. If you introduced a bug in the app, you’re not the only one responsible for it. _The whole team_ is responsible. This way you can’t tell “_This guy or this girl did that_”. The one who merges it is equally responsible. _You will then_ **share failures and victories together**. I do trainings sometimes and I am always shocked by how the coding and merging process can influence on the global ambiance. **A mandatory code review process does not ensure by itself a friendly and united team. But no process at all with no shared responsibility between developers guarantees tensions, for sure.**
 
 Code reviews are definitely a great tool. But it is not enough. Because we all know this moment when you’re tired and stressed and you have to review 2000 lines of code at 6pm. In this case you sometimes close your eyes on something you don’t understand cause you know… “_f\*\*\* it, let’s merge it_”. **If you have fat pull requests to review, it is a good idea to ask your colleague to present you their work and to review it in pair**.
 
-**Improve the level of your juniors**
-=====================================
+# **Improve the level of your juniors**
 
 Let’s say you have two seniors in your team and one junior. Here is what usually happens.
 
 You are doing your sprint planning and you have 3 features/fix requests.
 
-*   Implementing a catalog import with _RabbitMQ_ and _Elasticsearch_ (I took that example randomly, for sure)
-*   Synchronizing two databases
-*   Fixing a lot of broken translations
+-   Implementing a catalog import with _RabbitMQ_ and _Elasticsearch_ (I took that example randomly, for sure)
+-   Synchronizing two databases
+-   Fixing a lot of broken translations
 
 The first two are complex ones. The final one is a simple (but quite boring) task. **Right now, the junior developer is panicking cause they don’t have any clue how to handle the two complex tasks and they hope they are not asked to do these tasks**. Well, actually it’s not a problem, because the two senior developers are already discussing how fun it will be to deal with these complex issues, and start talking about a new esoteric and exciting paradigm they want to try. The junior is relieved and every one is happy…
 
@@ -58,4 +56,5 @@ In general the junior developer will accept the offer, with a bit of fear. They 
 Pair programming is a great tool, because (unlike code reviews) it does not only give you the result, but also the process of thought of your colleagues. If I think about my own experience, **pair programming or just discussing with a more experimented developer about a future feature were the most rewarding moments in my short career.** These moments are probably the ones when we learn the most how to think and code.
 
 [Next time](https://medium.com/@einenlum/lessons-learned-about-bus-factor-part-3-5-write-explicit-code-53ed3465d342), we will see how to make our code more explicit to ensure that a new comer will find their way in it.
+
 </Layout>

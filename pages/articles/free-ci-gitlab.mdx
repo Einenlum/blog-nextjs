@@ -1,16 +1,15 @@
-import Layout from '../../components/layout';
-import ArticleInfos from '../../components/article-infos';
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
 
 <Layout>
 
 export const meta = {
-    articleTitle: 'A free CI (using Docker-Compose) for your Gitlab repositories?',
+    articleTitle:
+        'A free CI (using Docker-Compose) for your Gitlab repositories?',
     publishedAt: new Date(2018, 9, 4),
 }
 
 <ArticleInfos meta={meta} />
-
-
 
 If you’re like me, you use Github for public repositories and for private repositories owned by organizations, but for your own private repositories, you use Gitlab. Indeed, Gitlab offers free unlimited private repositories and does the job.
 
@@ -31,7 +30,7 @@ Quite easy actually. I just had some issue (that I don’t have locally or on Ci
 This should do the trick. Hope it helped. Happy testing.
 
 **_Update_**: Actually, maybe I spoke too fast…  
-**I have an issue with the network. Containers cannot communicate with each others… Maybe I can play with the network options (network\_mode?).  
+**I have an issue with the network. Containers cannot communicate with each others… Maybe I can play with the network options (network_mode?).  
 If a docker expert is here, I would love some help :)**
 
 _Image by_ [_Paradasos_](https://www.flickr.com/photos/paradasos/7234825030/) _(CC by/nc)_
