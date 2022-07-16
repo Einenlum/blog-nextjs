@@ -1,5 +1,6 @@
 import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
+import SourcedImage from '../../components/sourced-image'
 
 <Layout>
 
@@ -21,25 +22,269 @@ Let’s say you are new on a project and you have to add a new feature in this p
 
 **Try to understand what this code is about, in a few seconds.**
 
-![](https://miro.medium.com/max/1400/1*Wq_cLSGvG_Hvu8mbD0HQyA.jpeg)“[_Juventae Chasma_](https://www.flickr.com/photos/europeanspaceagency/11337951926/in/album-72157623547766194/)” by European Space Agency
+```PHP
+<?php
+
+namespace App\Service;
+
+class Calculator
+{
+    private $cartsRepository;
+
+    public function __construct(Repository $cartsRepository)
+    {
+        $this->cartsRepository = $cartsRepository;
+    }
+
+    public function calculate($cartId)
+    {
+        $cart = $this->cartsRepository->find($cartId);
+        $user = $cart->getUser();
+
+        $products = $cart->getProducts();
+        $total = 0;
+
+        $productsTotalPrice = 0;
+        foreach ($products as $product) {
+            $productsTotalPrice += $product->getPrice();
+        }
+
+        if ($productsTotalPrice < 100
+            && in_array('SUPER_CUSTOMER', $user->getRoles())
+        ) {
+            $total = 20;
+        } elseif ($productsTotalPrice < 100) {
+            $total = 40;
+        }
+
+        $cart->setShipping($total);
+    }
+}
+```
+
+<SourcedImage
+    src="/images/bus-factor-3.jpg"
+    author="European Space Agency"
+    alt="A lovely picture of Mars landscape"
+    imageName="Juventae Chasma"
+    source="https://www.flickr.com/photos/europeanspaceagency/11337951926/in/album-72157623547766194/"
+    license="CC-BY-SA"
+></SourcedImage>
 
 Ok, I think you got it: Mars has beautiful landscapes, and the previous code is about calculating shipping fees. But that was not so obvious to get, and still, it is a very simple and short class. Imagine how it can feel for a newcomer in your project if there are hundreds of classes like this, and five times as long as this one.
 
 **Let’s try to clarify that.**
 
+```php
+<?php
+
+namespace App\Calculator;
+
+class Shipping
+{
+    private $cartsRepository;
+
+    public function __construct(Repository $cartsRepository)
+    {
+        $this->cartsRepository = $cartsRepository;
+    }
+
+    public function calculateShippingFees($cartId)
+    {
+        $cart = $this->cartsRepository->find($cartId);
+        $user = $cart->getUser();
+
+        $products = $cart->getProducts();
+        $total = 0;
+
+        $productsTotalPrice = 0;
+        foreach ($products as $product) {
+            $productsTotalPrice += $product->getPrice();
+        }
+
+        if ($productsTotalPrice < 100
+            && in_array('SUPER_CUSTOMER', $user->getRoles())
+        ) {
+            $total = 20;
+        } elseif ($productsTotalPrice < 100) {
+            $total = 40;
+        }
+
+        $cart->setShipping($total);
+    }
+}
+```
+
 First, **the naming is very bad.** “_Service_” does not mean anything and the method name is not explicit enough. We rename the namespace, the class and the method _(l. 3, 5, 14)_:
 
 Better. Now the next problem is that **a _Calculator_ should calculate and return a value**. Here, it calculates and sets the value to an object. This is misleading, and multiplies the responsibilities of the class. It also finds the _Cart_ object from a repository: it is quite hard to defend the injection of a repository in this simple _Calculator_ class. **Let’s directly pass a _Cart_ object as parameter (allowing an explicit _typehint_) and just return the calculated value** _(l. 9, 29)_.
 
+```php
+<?php
+
+namespace App\Calculator;
+
+use App\Model;
+
+class Shipping
+{
+    public function calculateShippingFees(Model\Cart $cart)
+    {
+        $user = $cart->getUser();
+
+        $products = $cart->getProducts();
+        $total = 0;
+
+        $productsTotalPrice = 0;
+        foreach ($products as $product) {
+            $productsTotalPrice += $product->getPrice();
+        }
+
+        if ($productsTotalPrice < 100
+            && in_array('SUPER_CUSTOMER', $user->getRoles())
+        ) {
+            $total = 20;
+        } elseif ($productsTotalPrice < 100) {
+            $total = 40;
+        }
+
+        return $total;
+    }
+}
+```
+
 **This _if/elseif_ is confusing** and takes too much of my energy to follow. Let’s get rid of that _(l. 21–29)_:
+
+```php
+<?php
+
+namespace App\Calculator;
+
+use App\Model;
+
+class Shipping
+{
+    public function calculateShippingFees(Model\Cart $cart)
+    {
+        $user = $cart->getUser();
+
+        $products = $cart->getProducts();
+        $total = 0;
+
+        $productsTotalPrice = 0;
+        foreach ($products as $product) {
+            $productsTotalPrice += $product->getPrice();
+        }
+
+        if ($productsTotalPrice > 100) {
+            return 0;
+        }
+
+        if (in_array('SUPER_CUSTOMER', $user->getRoles())) {
+            return 20;
+        }
+
+        return 40;
+    }
+}
+```
 
 I feel better already. **This calculation of the total of the cart could be the responsibility of the model.** Then let’s get rid of it too, and add an explicit method name so that we know what total we are talking about (because yes, **when calculating prices, knowing if we include VAT or not can be interesting**) _(l.13)_:
 
+```php
+<?php
+
+namespace App\Calculator;
+
+use App\Model;
+
+class Shipping
+{
+    public function calculateShippingFees(Model\Cart $cart)
+    {
+        $user = $cart->getUser();
+
+        if ($cart->getTotalPriceIncludingVat() > 100) {
+            return 0;
+        }
+
+        if (in_array('SUPER_CUSTOMER', $user->getRoles())) {
+            return 20;
+        }
+
+        return 40;
+    }
+}
+```
+
 I still have an issue here. **What are all these magical numbers? 20? 40? 100?** If you are new to the project, chances are that you will be a bit afraid to change one of them and will ask to your client or your colleagues what they actually mean. If they are supposed to change, we inject them as parameters with clear variable names. If they are not, then **we can use constants** _(l. 9–11, 17, 22, 25)_:
+
+```php
+<?php
+
+namespace App\Calculator;
+
+use App\Model;
+
+class Shipping
+{
+    const THRESHOLD_FOR_FREE_SHIPPING_FEES = 100;
+    const SHIPPING_FEES_FOR_SUPER_CUSTOMER = 20;
+    const NORMAL_SHIPPING_FEES = 40;
+
+    public function calculateShippingFees(Model\Cart $cart)
+    {
+        $user = $cart->getUser();
+
+        if ($cart->getTotalPriceIncludingVat() > self::THRESHOLD_FOR_FREE_SHIPPING_FEES) {
+            return 0;
+        }
+
+        if (in_array('SUPER_CUSTOMER', $user->getRoles())) {
+            return self::SHIPPING_FEES_FOR_SUPER_CUSTOMER;
+        }
+
+        return self::NORMAL_SHIPPING_FEES;
+    }
+}
+```
 
 This could look a bit overkill to use constants here, but it will help for sure any new comer to the project to understand right away what is going on. Even better: **if you have a question about these numbers, you can directly ask your client about the “_threshold for free shipping fees_”** instead of making them guess about this “_100 number_” that could be anything in the app. Finally **it allows you to centralize these informations somewhere and reuse them in the app**, avoiding you some headaches while refactoring.
 
 This is way better. But I still have a last issue here. I guess these numbers are some money. **But with what currency are we working here?** Euros? Dollars? Yen? If you clarify this right away, that will prevent every developer from being lost when the app is growing. For this, we can use the [Money library](https://github.com/moneyphp/money) which implements [Martin’s Fowler Money pattern](https://martinfowler.com/eaaCatalog/money.html). We also add a _return typehint_, since we can do it since PHP 7.1 _(l.5, 14, 18–26)_:
+
+```php
+<?php
+
+namespace App\Calculator;
+
+use App\Model;
+use Money\Money;
+
+class Shipping
+{
+    const THRESHOLD_FOR_FREE_SHIPPING_FEES = 100;
+    const SHIPPING_FEES_FOR_SUPER_CUSTOMER = 20;
+    const NORMAL_SHIPPING_FEES = 40;
+
+    public function calculateShippingFees(Model\Cart $cart): Money
+    {
+        $user = $cart->getUser();
+
+        if ($cart->getTotalPriceIncludingVat()->greaterThanOrEqual(
+            Money::EUR(self::THRESHOLD_FOR_FREE_SHIPPING_FEES)
+        )) {
+            return Money::EUR(0);
+        }
+
+        if (in_array('SUPER_CUSTOMER', $user->getRoles())) {
+            return Money::EUR(self::SHIPPING_FEES_FOR_SUPER_CUSTOMER);
+        }
+
+        return Money::EUR(self::NORMAL_SHIPPING_FEES);
+    }
+}
+```
 
 If it is maybe as verbose as the initial code, I think this code is much easier to read, to understand and to maintain. **You understand right away what we are talking about and what it does, without the need of any comment.** This will also (in my opinion) **help a lot of new comers in your project to dive into your code and be able to refactor or maintain any class.** It will **avoid** the team to waste time with **infinite questions, since the code is self-documented.** This is obviously a very simple example I took for the purpose of this article, but I think this way of refactoring and writing explicit code can apply to much fatter classes. Also this _Calculator_ is a dummy example: we could (should?) do that directly in the model instead of instantiating a service for this simple task. Once again, it was just a straightforward example to show a few common problems we can find on a daily basis.
 

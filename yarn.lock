@@ -1496,6 +1496,11 @@
   "resolved" "https://artifactory.cloud-grdf.fr/artifactory/api/npm/grdf-npm-npmjs/hast-util-whitespace/-/hast-util-whitespace-2.0.0.tgz"
   "version" "2.0.0"
 
+"highlight.js@^11.6.0":
+  "integrity" "sha512-ig1eqDzJaB0pqEvlPVIpSSyMaO92bH1N2rJpLMN/nX396wTpDA4Eq0uK+7I/2XG17pFaaKE0kjV/XPeGt7Evjw=="
+  "resolved" "https://artifactory.cloud-grdf.fr/artifactory/api/npm/grdf-npm-npmjs/highlight.js/-/highlight.js-11.6.0.tgz"
+  "version" "11.6.0"
+
 "ignore@^5.2.0":
   "integrity" "sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ=="
   "resolved" "https://artifactory.cloud-grdf.fr/artifactory/api/npm/grdf-npm-npmjs/ignore/-/ignore-5.2.0.tgz"

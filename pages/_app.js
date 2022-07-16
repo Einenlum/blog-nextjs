@@ -1,5 +1,9 @@
 import '../styles/globals.css'
+import 'highlight.js/styles/default.css';
+
 import { MDXProvider } from '@mdx-js/react'
+import { useEffect } from 'react'
+
 import PageTitle from '../components/page-title'
 import LiElement from '../components/li-element'
 import ALink from '../components/a-link'
@@ -7,7 +11,12 @@ import Subtitle from '../components/subtitle'
 import H3 from '../components/h3'
 import P from '../components/p'
 import Blockquote from '../components/blockquote'
+import Pre from '../components/pre'
 
+import hljs from 'highlight.js'
+import php from 'highlight.js/lib/languages/php'
+
+hljs.registerLanguage('php', php)
 
 const components = {
   h1: PageTitle,
@@ -17,9 +26,14 @@ const components = {
   a: ALink,
   p: P,
   blockquote: Blockquote,
+  pre: Pre
 }
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+      hljs.initHighlighting();
+  }, []);
+
   return (
     <MDXProvider components={components}>
       <Component {...pageProps} />
