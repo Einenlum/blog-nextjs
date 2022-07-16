@@ -4,12 +4,15 @@ import php from 'highlight.js/lib/languages/php'
 import gherkin from 'highlight.js/lib/languages/gherkin'
 import yaml from 'highlight.js/lib/languages/yaml'
 
-hljs.registerLanguage('php', php)
-hljs.registerLanguage('gherkin', gherkin)
-hljs.registerLanguage('yaml', yaml)
-hljs.registerLanguage('yml', yaml)
+const mapping = {
+    'php': php,
+    'gherkin': gherkin,
+    'yaml': yaml,
+    'yml': yaml
+}
 
-export default function WithSyntaxHighlighting({children}) {
+export default function WithSyntaxHighlighting({languages, children}) {
+    languages.forEach(language => hljs.registerLanguage(language, mapping[language]))
     useEffect(() => {
         hljs.initHighlighting();
     }, []);
