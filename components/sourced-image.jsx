@@ -3,8 +3,8 @@ import ImageSource from './image-source'
 
 export default function SourcedImage({src, author, imageName, license, source, alt}) {
     return (
-        <div className="my-10">
-            <div className="">
+        <div className="my-10 mx-auto">
+            <div className="text-center">
                 <Image
                     src={src}
                     alt={alt}

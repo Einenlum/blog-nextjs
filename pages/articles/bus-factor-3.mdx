@@ -1,6 +1,10 @@
+import { useEffect } from 'react'
+
 import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
 import SourcedImage from '../../components/sourced-image'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
 
 <Layout>
 
@@ -10,6 +14,7 @@ export const meta = {
     publishedAt: new Date(2017, 8, 29),
 }
 
+<WithSyntaxHighlighting>
 <ArticleInfos meta={meta} />
 
 _This series of articles is taken from a talk I gave at the_ [_Berlin PHP Meetup_](https://twitter.com/bephpug)_. If you didn’t read the first one,_ [_here you go_](https://medium.com/@einenlum/lessons-learned-about-bus-factor-1-5-introduction-994b3b0332d3)_._
@@ -289,5 +294,7 @@ class Shipping
 If it is maybe as verbose as the initial code, I think this code is much easier to read, to understand and to maintain. **You understand right away what we are talking about and what it does, without the need of any comment.** This will also (in my opinion) **help a lot of new comers in your project to dive into your code and be able to refactor or maintain any class.** It will **avoid** the team to waste time with **infinite questions, since the code is self-documented.** This is obviously a very simple example I took for the purpose of this article, but I think this way of refactoring and writing explicit code can apply to much fatter classes. Also this _Calculator_ is a dummy example: we could (should?) do that directly in the model instead of instantiating a service for this simple task. Once again, it was just a straightforward example to show a few common problems we can find on a daily basis.
 
 [Next time](https://medium.com/@einenlum/lessons-learned-about-bus-factor-part-4-5-stay-close-to-the-domain-b0d315195678), we will talk about one of the most important issues when lacking of knowledge sharing: **the domain**.
+</WithSyntaxHighlighting>
+
 
 </Layout>
