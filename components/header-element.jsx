@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const isActive = (link) => {
-    const router = useRouter();
-
-    return router.asPath === link
-}
-
 function ActiveElement({text}) {
     return (
         <li className="mx-3 md:mx-6 last:mr-0 md:text-lg">
@@ -31,6 +25,8 @@ function InactiveElement({text, path}) {
 
 export default function HeaderElement({ elem }) {
     const { text, path } = elem
+    const router = useRouter();
+    const isActive = router.asPath === path
 
-    return isActive(path) ? <ActiveElement text={text} path={path} /> : <InactiveElement text={text} path={path} />
+    return isActive ? <ActiveElement text={text} path={path} /> : <InactiveElement text={text} path={path} />
 }

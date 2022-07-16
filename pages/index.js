@@ -42,10 +42,10 @@ export default function Home({ articles }) {
         <>
             <Layout>
                 <Head>
-                    <title>Einenlum's blog</title>
+                    <title>{"Einenlum's blog"}</title>
                 </Head>
 
-                <PageTitle>Einenlum's blog</PageTitle>
+                <PageTitle>{"Einenlum's blog"}</PageTitle>
                 <ArticlesContainer articles={articles}></ArticlesContainer>
             </Layout>
         </>
