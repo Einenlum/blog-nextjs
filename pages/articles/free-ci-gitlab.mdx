@@ -2,6 +2,7 @@ import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
 import SourcedImage from '../../components/sourced-image'
 import ALink from '../../components/a-link'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
 
 <Layout>
 
@@ -11,6 +12,7 @@ export const meta = {
     publishedAt: new Date(2018, 9, 4),
 }
 
+<WithSyntaxHighlighting>
 <ArticleInfos meta={meta} />
 
 If you’re like me, you use Github for public repositories and for private repositories owned by organizations, but for your own private repositories, you use Gitlab. Indeed, Gitlab offers free unlimited private repositories and does the job.
@@ -33,12 +35,55 @@ First, the (very bad…) documentation says you need to enable some shared runne
 
 Now we just need to create a \`.gitlab-ci.yml\` file in the root directory of our project. [This is quite documented for the general use](https://docs.gitlab.com/ce/ci/yaml/), but there is no track of docker-compose in the documentation. It seems we just need to install it as a python package ([thank you Stack Overflow!](https://stackoverflow.com/a/42697808/3524372)) and then we can use it. We also need to use some obscure image:docker and docker:dind services. Well, if it works, why not.
 
+```yaml
+image: docker
+
+services:
+    - docker:dind
+
+before_script:
+    - apk add --no-cache py-pip
+    - pip install docker-compose
+    - docker-compose build
+    - docker-compose up -d
+    # here we can install our dependencies (composer, yarn…)
+
+tests:
+    script:
+        # launch our tests
+        - docker-compose exec php phpspec run --format pretty
+        - docker-compose exec php phpunit
+        - docker-compose exec php behat
+```
+
 Quite easy actually. I just had some issue (that I don’t have locally or on CircleCI) with the interactive TTY while executing \`docker-compose exec\`. Maybe because the version used by pip is [the one adding a regression](https://github.com/docker/compose/issues/5696#issue-299103105)? I dunno. Anyway, you can fix the issue by adding a \`-T\` tag to your commands.
+
+```yaml
+image: docker
+
+services:
+    - docker:dind
+
+before_script:
+    - apk add --no-cache py-pip
+    - pip install docker-compose
+    - docker-compose build
+    - docker-compose up -d
+    - docker-compose exec -T php composer install
+
+tests:
+    script:
+        - docker-compose exec -T php phpspec run --format pretty
+        - docker-compose exec -T php phpunit
+        - docker-compose exec -T php behat
+```
 
 This should do the trick. Hope it helped. Happy testing.
 
 **_Update_**: Actually, maybe I spoke too fast…  
 **I have an issue with the network. Containers cannot communicate with each others… Maybe I can play with the network options (network_mode?).  
 If a docker expert is here, I would love some help :)**
+
+</WithSyntaxHighlighting>
 
 </Layout>
