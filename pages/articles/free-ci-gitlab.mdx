@@ -1,5 +1,7 @@
 import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
+import SourcedImage from '../../components/sourced-image'
+import ALink from '../../components/a-link'
 
 <Layout>
 
@@ -13,7 +15,13 @@ export const meta = {
 
 If you’re like me, you use Github for public repositories and for private repositories owned by organizations, but for your own private repositories, you use Gitlab. Indeed, Gitlab offers free unlimited private repositories and does the job.
 
-![](https://miro.medium.com/max/1400/1*UpEU7VjL87DbgUPiDxzTnA.jpeg)
+<SourcedImage
+    src="/images/fox.jpg"
+    author="Paradasos"
+    alt="An image of a fox"
+    source="https://www.flickr.com/photos/paradasos/7234825030/"
+    license="CC BY/NC"
+></SourcedImage>
 
 After having pushed a lot of commits, you decide that it could be really nice to automate your tests everytime a Merge Request (yes, Merge Request. We’re talking Gitlab language here) is created.
 
@@ -32,7 +40,5 @@ This should do the trick. Hope it helped. Happy testing.
 **_Update_**: Actually, maybe I spoke too fast…  
 **I have an issue with the network. Containers cannot communicate with each others… Maybe I can play with the network options (network_mode?).  
 If a docker expert is here, I would love some help :)**
-
-_Image by_ [_Paradasos_](https://www.flickr.com/photos/paradasos/7234825030/) _(CC by/nc)_
 
 </Layout>

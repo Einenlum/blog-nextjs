@@ -1,5 +1,6 @@
 import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
+import SourcedImage from '../../components/sourced-image'
 
 <Layout>
 
@@ -12,7 +13,14 @@ export const meta = {
 
 As a dev, you use docker as a dev environment. You’re quite happy that you finally ended mastering it (or at least make it work \\o/). Since you’re a great developer, you know the importance of automated testing, and you wrote a bunch of specs or features to test. You made everything work locally thanks to a few docker-compose commands. Maybe you’re thinking now that it could be awesome to even automate the process of launching those tests, by delegating this process to a CI, that will listen to your Github events, and send you back a green or red dot on your Pull Request’s page.
 
-![](https://miro.medium.com/max/1400/1*kujAbDF4Af329ybn5BxEjQ.jpeg)
+<SourcedImage
+    src="/images/docker-compose-circle.jpeg"
+    author="Berlin Beyond"
+    alt="A picture of a bunch of warriors on horses crossing a river"
+    imageName="ThePollDiaries_003_BavariaFilmInternational"
+    source="https://www.flickr.com/photos/berlinbeyond2011/6193336443/in/photolist-arht9P-6bccio-deyFCp-goYfGz-a3vxHU-9PMyNq-9jvL7v-bqSFuF-cWe4RS-4zorW-jZfnqA-6b7gHM-9PMUqy-97EFj2-8QqYWP-85MRJV-8Zucvt-asv2K9-6eEXa5-85HZC7-7vUZKA-9gthGv-pKSGNX-2L49ss-a7hPTR-pnkMNn-a71YyV-mVS2hg-4LAmEu-jH3fq3-5ZZGTg-9PMyeQ-b9vkRP-qc1mPd-8CPEYK-C969c-8eKo2C-9PMPCw-4RBbZz-8tEGSS-aEfkPp-9Xm5NB-nCzkRf-7w8fih-9Gdu5A-9GajMX-nmitMv-9Gawov-nmivWv-9G9YdP"
+    license="CC BY"
+></SourcedImage>
 
 Since you used CircleCI a few years ago, since they claim it’s easy to use with docker and since they provide a free plan, you think you’re gonna make it standing on your head. Well, let me tell you that it can be quite a pain in the a\*\* if you don’t have the right instructions, and the documentation is quite awful when it comes to using it with docker-compose. Fortunately, it can be very easy when you get the right options to use in the config.
 
