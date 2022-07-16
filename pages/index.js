@@ -45,7 +45,6 @@ export default function Home({ articles }) {
                     <title>{"Einenlum's blog"}</title>
                 </Head>
 
-                <PageTitle>{"Einenlum's blog"}</PageTitle>
                 <ArticlesContainer articles={articles}></ArticlesContainer>
             </Layout>
         </>
