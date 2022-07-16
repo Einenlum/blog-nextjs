@@ -1,6 +1,7 @@
 import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
 import SourcedImage from '../../components/sourced-image'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
 
 <Layout>
 
@@ -9,6 +10,8 @@ export const meta = {
         'Lessons learned about Bus Factor (Part 4/5): Stay close to the domain',
     publishedAt: new Date(2017, 8, 30),
 }
+
+<WithSyntaxHighlighting>
 
 <ArticleInfos meta={meta} />
 
@@ -42,7 +45,7 @@ This is a really important tool to help a new developer to understand the domain
 
 It’s quite obvious that tests will help you improve the quality of your code and avoid bugs. Great. But **tests can also be a great way to help a developer dive into your project**. **The first thing I check when I dive into a new project, is the presence of functional tests.** That can make you understand very quickly what this application is about and what it does. And then, if I want to understand more in detail what different classes do, I can check unit tests. As a PHP developer I like to use [Behat](http://behat.org/en/latest/) (a kind of Cucumber-like for those who are familiar with it), a simple test runner allowing you to describe _scenarios_ in a human readable language called _Gherkin_. Here is how it looks like:
 
-```cucumber
+```gherkin
 Feature: An interesting feature for your app
 
     Scenario: A first amazing scenario
@@ -90,7 +93,7 @@ These tools are just test runners that let you free to write very explicit and s
 
 The problem is that these tools allow you to do many **many** things, from scratch. Like manipulating a browser with already written Gherkin definitions. So usually, when looking at Behat tests, here is the kind of scenarios you could find in many projects.
 
-```cucumber
+```gherkin
 Feature: Users can only order products they have access to
 
     Scenario: I cannot choose a product if I don't have access to it as a retailer
@@ -106,7 +109,7 @@ Sure, it describes something. But it does not describe your domain. It describes
 
 First, since it is totally coupled to the user interface, what happens if you’re working on a foreign project? Maybe you will start to see these kinds of things:
 
-```cucumber
+```gherkin
 Feature: Users can only order products they have access to
 
     Scenario: I cannot choose a product if I don't have access to it as a retailer
@@ -120,7 +123,7 @@ Feature: Users can only order products they have access to
 
 Wuuuh. Ugly. As a french developer I can assure you it’s a quite common thing to see. But the most serious problem here, is that **you lose the main topic of documentation you should care about: the domain of your client.** Gherkin is a great tool, if you only describe the goal of the application in domain terms, without worrying at all about the concrete technical implementation. This scenario could be implemented with a classical website, a JSON Rest API, or a simple CLI. That is not our problem here. **We want to describe where and why your mean of transportation is driving you. Not the colour of your car.** Here is how we could describe our feature instead:
 
-```cucumber
+```gherkin
 Feature: Users can order products they have access to
 
     Scenario: I cannot choose a product if I don't have access to it as a retailer
@@ -137,6 +140,6 @@ For those who want to go further, **I really advise you the article “**[**_Int
 
 [In the next (and final) article](https://medium.com/@einenlum/lessons-learned-about-bus-factor-part-5-5-detect-it-before-it-is-too-late-adbb1784078f), we will think about how we can detect a Bus Factor issue as quick as possible.
 
+</WithSyntaxHighlighting>
+
 </Layout>
-```
-````
