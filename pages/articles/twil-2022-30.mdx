@@ -1,5 +1,6 @@
 import Layout from '../../components/layout'
 import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
 
 <Layout>
 
@@ -7,6 +8,8 @@ export const meta = {
     articleTitle: 'This Week I Learned: 2022W30',
     publishedAt: new Date(2022, 8, 2),
 }
+
+<WithSyntaxHighlighting languages={['php', 'python']}>
 
 <ArticleInfos meta={meta} />
 I'm in holidays so I allow myself to skip a week of learning (sorry week 29!) ^^.
@@ -173,5 +176,7 @@ If you want to generate a range of floats, use the third argument to determine t
 */
 range(0.0, 2.0, 0.1);
 ```
+
+</WithSyntaxHighlighting>
 
 </Layout>
