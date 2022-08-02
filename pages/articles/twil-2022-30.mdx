@@ -16,7 +16,7 @@ I'm in holidays so I allow myself to skip a week of learning (sorry week 29!) ^^
 
 ## Python - Bytecode - Threads
 
-There was a [subtle change](https://github.com/python/cpython/commit/4958f5d69dd2bf86866c43491caf72f774ddec97) in how Python 3.10 produces bytecode. This can lead to [normal behaviors when expect strange ones](https://stackoverflow.com/questions/69993959/python-threads-difference-for-3-10-and-others) (yes, this sentence is fucked up). I was trying to reproduce a common Python problem with threads and race conditions and I couldn't.
+There was a [subtle change](https://github.com/python/cpython/commit/4958f5d69dd2bf86866c43491caf72f774ddec97) in how Python 3.10 produces bytecode. This can lead to [normal behaviors when you expect a strange one](https://stackoverflow.com/questions/69993959/python-threads-difference-for-3-10-and-others) (yes, this sentence is fucked up). I was trying to reproduce a common Python problem with threads and race conditions and I couldn't.
 
 Before 3.10, this code was leading to an unexpected result, different from `1000000`:
 
@@ -63,7 +63,27 @@ SQLite keeps a journal to keep the integrity of the database which makes it much
 
 [EdgeDB](https://www.edgedb.com/) is a database working with PostgreSQL under the hood. It allows you to work with objects instead of tables directly in the database. You can then use EdgeQL (instead of SQL) to query it. It also handles migrations and pretends to overcome the use of ORMs. Honestly, it sounds promising. I'm just a bit skeptical about the tooling and clients so far. The [Python client](https://github.com/edgedb/edgedb-python) looks quite rudimentary (no official client for PHP yet) and I wonder you map the database objects to your models and how you easily update an existing one. Anyway, I'll keep an eye on this. (Thanks again to Olivier for this discovery!)
 
-## PHP
+## Python - Range
+
+Weirdly, the Python `range` function only accepts integers.
+
+```python
+range(0, 10) # Ok
+# TypeError: 'float' object cannot be interpreted as an integer
+range(0.0, 10.0)
+```
+
+On the other hand, you can omit the first argument of `range`. In this case it starts at `0`.
+
+```python
+list(range(0, 10))
+# is equivalent to
+list(range(10))
+```
+
+Good to know: the limit of the Python `range` is exclusive. (`range(0, 10)` goes to `9`) where as the PHP one is inclusive (`range(0, 10);` goes to `10`).
+
+## PHP - Range
 
 The `range` function not only accepts integers but also floats and strings.
 
@@ -177,7 +197,7 @@ If you want to generate a range of floats, use the third argument to determine t
 range(0.0, 2.0, 0.1);
 ```
 
-## PHP
+## PHP - Range - Iterators
 
 There is no native range iterator in PHP (as the native Python `range` function in 3.x and the `xrange` function in 2.x). Seems like you have to build your own.
 
@@ -192,6 +212,46 @@ function xrange($start, $end, $step = 1) {
 
 foreach (xrange(0, 1000000) as $x) {
 }
+```
+
+## PHP - Python - Iterators
+
+In PHP and Python you can use the `yield from` expression if your iterator wants to send the values of another iterator directly.
+
+PHP
+
+```php
+function xrange($start, $end, $step = 1) {
+    for ($i = $start; $i <= $end; $i += $step) {
+        yield $i;
+    }
+}
+
+function my_iterator() {
+    /*
+        This is equivalent to
+        foreach (xrange(0, 10) as $x) {
+            yield $x;
+        }
+    */
+    yield from xrange(0, 10);
+}
+
+/* [0, 1, ... 9, 10] */
+iterator_to_array(my_iterator());
+```
+
+Python
+
+```python
+def my_iterator():
+    # Equivalent to
+    # for x in xrange(0, 10):
+    #     yield x
+    yield from range(0, 10)
+
+# [0, 1, ... 8, 9]
+list(my_iterator())
 ```
 
 </WithSyntaxHighlighting>
