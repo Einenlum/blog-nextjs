@@ -177,6 +177,23 @@ If you want to generate a range of floats, use the third argument to determine t
 range(0.0, 2.0, 0.1);
 ```
 
+## PHP
+
+There is no native range iterator in PHP (as the native Python `range` function in 3.x and the `xrange` function in 2.x). Seems like you have to build your own.
+
+Weird that it's still not in the standard lib.
+
+```php
+function xrange($start, $end, $step = 1) {
+    for ($i = $start; $i <= $end; $i += $step) {
+        yield $i;
+    }
+}
+
+foreach (xrange(0, 1000000) as $x) {
+}
+```
+
 </WithSyntaxHighlighting>
 
 </Layout>
