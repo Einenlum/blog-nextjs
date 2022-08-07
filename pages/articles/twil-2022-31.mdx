@@ -1,0 +1,172 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W31',
+    publishedAt: new Date(2022, 8, 7),
+}
+
+<WithSyntaxHighlighting languages={['toml', 'python']}>
+
+<ArticleInfos meta={meta} />
+
+## Python - Pydantic
+
+Pydantic will coerce values by default (an integer value will be coerced to a string attribute without validation error). If you don't want this behavior you can use [Strict Types](https://pydantic-docs.helpmanual.io/usage/types/#strict-types).
+
+## Python - Dictionaries
+
+If you want to set a default value to a dictionary key if it doesn't exist, you can use `setdefault`.
+
+```python
+my_dict = {'country': 'France', 'city': 'Paris'}
+
+my_dict.setdefault('language', 'French')
+
+# {
+#     'country': 'France',
+#     'city': 'Paris',
+#     'lanugage': 'French'
+# }
+my_dict
+```
+
+Quite useful for default configuration, as it's used [here](https://github.com/psf/requests/blob/main/requests/sessions.py#L599) in the `requests` library.
+
+## Python - OOP - Caching
+
+You can use the `@functools.cached_property` decorator instead of `@property` if you want a class virtual property to be computed only once.
+
+```python
+from functools import cached_property
+from time import sleep
+
+class Foo:
+    bar = 33
+    baz = 4
+
+    @cached_property
+    def something_expensive(self):
+        sleep(1)
+
+        return self.bar + self.baz
+
+foo = Foo()
+
+# Takes 1 second
+foo.something_expensive
+
+# Is immediate, because it's been called
+# on the same instance already
+foo.something_expensive
+```
+
+Found it in [my friend Olivier's code](https://github.com/olivierphi/gin_scoring/blob/django-version/src/apps/gin_scoring/models.py#L25) :)
+
+## Python - Zip
+
+Since Python 3.10, `zip` accepts a `strict` keyword argument if you want it to throw an exception in case of two iterables of different length. See [PEP 618](https://peps.python.org/pep-0618/).
+
+## Python - Typehints
+
+Since Python 3.9 you don't need to import the corresponding typing types if you want to declare the shape of an iterable.
+
+Before 3.9:
+
+```python
+from typing import Dict
+
+def foo(x: Dict[str, bool]) -> None:
+    pass
+```
+
+From 3.9:
+
+```python
+def foo(x: dict[str, bool]) -> None:
+    pass
+```
+
+## Python - Poetry
+
+If you want to use a private repository (and not the official PyPI one) when installing a package with poetry, you can add this into your `pyproject.yaml` (here for the test PyPI repository):
+
+```toml
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+```
+
+## Python - PyPI - Poetry
+
+When using poetry, if you want to publish a package on the test PyPI repository, you have to use this address: `https://test.pypi.org/legacy/`
+If you want to download/use a package from this same repository you have to use `https://test.pypi.org/simple/`.
+
+I still don't understand why. The `simple` one only works for downloads, and the `legacy` one only works for uploads. It's very confusing and not documented.
+
+But again, it just confirms to me that PyPI is really far behind compared to other repositories like packagist or npmjs. ¯\\\_(ツ)\_/¯
+
+## Python - Pip
+
+If you created your package and published it on the [test PyPI instance](https://test.pypi.org/), and that package has a real world dependency, then installing it with pip could be really hard.
+
+For example my package was requiring `requests:^2.28.1`. But on the test instance, the last release is [2.5.4.1](https://test.pypi.org/project/requests/) (whatever this number means…).
+
+If I try to install my package from the test instance with pip:
+
+```
+python -m pip install --index-url https://test.pypi.org/simple einenlum-weather-project
+```
+
+I get :
+
+```
+ERROR: Cannot install einenlum-weather-project==0.1.1 and einenlum-weather-project==0.1.2 because these package versions have conflicting dependencies.
+
+The conflict is caused by:
+    einenlum-weather-project 0.1.2 depends on requests<3.0.0 and >=2.28.1
+    einenlum-weather-project 0.1.1 depends on requests<3.0.0 and >=2.28.1
+```
+
+It took time for me to realize it's because it tries to install `requests:^2.28.1` from the test instance (which doesn't exist).
+
+The workaround is to first install `requests` manually (so I guess I have to do it for every of my dependencies…):
+
+```
+python -m pip install requests==2.28.1
+```
+
+And then to install again my package:
+
+```
+python -m pip install --index-url https://test.pypi.org/simple einenlum-weather-project
+Looking in indexes: https://test.pypi.org/simple
+Collecting einenlum-weather-project
+  Downloading https://test-files.pythonhosted.org/packages/05/c0/eb3bf1887a33c4b8f938771e1842213302b1b72dd9f12621320a3f645f1b/einenlum_weather_project-0.1.2-py3-none-any.whl (3.1 kB)
+Requirement already satisfied: requests<3.0.0,>=2.28.1 in ./.venv/lib/python3.10/site-packages (from einenlum-weather-project) (2.28.1)
+Requirement already satisfied: idna<4,>=2.5 in ./.venv/lib/python3.10/site-packages (from requests<3.0.0,>=2.28.1->einenlum-weather-project) (3.3)
+Requirement already satisfied: charset-normalizer<3,>=2 in ./.venv/lib/python3.10/site-packages (from requests<3.0.0,>=2.28.1->einenlum-weather-project) (2.1.0)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in ./.venv/lib/python3.10/site-packages (from requests<3.0.0,>=2.28.1->einenlum-weather-project) (1.26.11)
+Requirement already satisfied: certifi>=2017.4.17 in ./.venv/lib/python3.10/site-packages (from requests<3.0.0,>=2.28.1->einenlum-weather-project) (2022.6.15)
+Installing collected packages: einenlum-weather-project
+Successfully installed einenlum-weather-project-0.1.2
+```
+
+On the other hand with poetry it works without this trick. Seems like it fallbacks to the default PyPI repository if it can't find the dependency in your private repository.
+
+Again, really surprised by the behavior of pip and that it's still the default dependency manager for Python.
+
+## CSS - Fonts
+
+Fonts can be big and you don't use the whole range of characters present in the files.
+
+[Glyphhanger](https://github.com/zachleat/glyphhanger) is a tool to remove all the characters that are not used on your website to provide a lighter woff version with only the characters you use.
+
+Didn't try it yet, but it sounds interesting.
+
+</WithSyntaxHighlighting>
+
+</Layout>
