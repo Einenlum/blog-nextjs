@@ -1,0 +1,29 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W32',
+    publishedAt: new Date(2022, 7, 15),
+}
+
+<ArticleInfos meta={meta} />
+
+## Database - MySQL - Count
+
+At least for MySQL (not sure for Postgres), using `COUNT(*)` is always preferrable to `COUNT(id)` in terms of performance. Very interesting article [here](https://aaronfrancis.com/2022/mysql-count-star-slow) from Aaron Francis.
+
+## Javascript - React - Solid
+
+[SolidJS](https://www.solidjs.com/) looks a lot like [ReactJS](https://reactjs.org/) but is more efficient and probably simpler to use since it's truely reactive (the value is updated and not the whole component). Sounds really interesting. On the other hand it it doesn't look as mature as React. I guess the caveat is that you don't have frameworks like [NextJS](https://nextjs.org/) yet. There is the [Solid Start](https://github.com/solidjs/solid-start) project, but it's still very experimental.
+
+## CRUD - BREAD
+
+I just read the term **BREAD** (_Browse_ - _Read_ - _Edit_ - _Add_ - _Delete_) instead of **CRUD** (_Create_ - _Read_ - _Update_ - _Delete_) in [this article](https://paul-m-jones.com/post/2008/08/20/bread-not-crud/) from Paul M. Jones. The advantage of the former is the distinction between browsing (listing elements) and reading (fetching the detail of an element/resource).
+
+## Data transmission over the wire
+
+[CBOR](https://cbor.io/) and [MessagePack](https://msgpack.org/) are two self-describing (as JSON is) binary transmission formats. On the other hand [Protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers) is not self-describing (one needs the protobuf schema to unserialize it).
+
+</Layout>
