@@ -1,0 +1,75 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W36',
+    publishedAt: new Date(2022, 8, 14),
+}
+
+<WithSyntaxHighlighting languages={['php']}>
+<ArticleInfos meta={meta} />
+
+After a few weeks of holidays, I'm back! :)
+
+## CSS
+
+You can now control how the page breaks during scrolling only with CSS (no Javascript needed), thanks to `scroll-snap-type` and `scroll-snap-align`. Source [here](https://twitter.com/mgechev/status/1560060316137844737).
+
+## Randomness
+
+The pseudorandom number generator used by PHP, Python, Ruby, Matlab or Excel is the same. It's called [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister). I still struggle to understand 1% of the Wikipedia article because of my total lack of Math knowledge.
+
+## Airtags - Apple - Privacy
+
+I just heard about [Airtags](https://www.apple.com/airtag/). Supposedly launched to help you find your keys or other items. It seems like it has been used for malevolant purposes. You can check this Guardian article [here](https://www.theguardian.com/technology/2022/sep/05/i-didnt-want-it-anywhere-near-me-how-the-apple-airtag-became-a-gift-to-stalkers). I find it really disturbing.
+
+## Git
+
+[Git History](https://githistory.xyz/) allows you to easily see the changes in a Git file. Just replace `github` (or `gitlab`) in the URL with `githistory.xyz`.
+For example: This [Symfony file](https://github.com/symfony/symfony/blob/6.2/src/Symfony/Component/Clock/NativeClock.php) and [its history](https://github.githistory.xyz/symfony/symfony/blob/6.2/src/Symfony/Component/Clock/NativeClock.php). Obviously doesn't work with private repositories, but quite interesting! I like the visual representation.
+
+## Partial - Currying
+
+When diving into the Python [functools](https://docs.python.org/3/library/functools.html) module, I realized I stumbled upon the [partial](https://docs.python.org/3/library/functools.html#functools.partial) function. I was a bit confused because I thought partial was the same as currying.
+
+It seems it's two different concepts (even if it's still quite narrow to me).
+
+You can check an article about the differences [here](https://betterprogramming.pub/functional-programming-currying-vs-partial-application-53b8b05c73e3).
+
+## PHP - Partial Function Application
+
+There is no way to easily make a partial function in PHP. [An RFC](https://wiki.php.net/rfc/partial_function_application#dokuwiki__top) was proposed but was rejected.
+
+If you want to achieve it, you will need to create your own partial application. One implementation example:
+
+```php
+<?php
+
+function add(int $x, int $y, int $z) {
+    return $x + $y + $z;
+}
+
+function partial(callable $fn, ...$args) {
+    $newCallable = function (...$newArgs) use ($fn, $args) {
+        $finalArgs = array_merge($args, $newArgs);
+
+        return $fn(...$finalArgs);
+    };
+
+    return $newCallable;
+}
+
+$add2 = partial(add(...), 2);
+$add3 = partial($add2(...), 1);
+
+$add3(2); // 5
+```
+
+Here we use the `(...)` notation, [introduced in PHP 8.1](https://php.watch/versions/8.1/first-class-callable-syntax).
+
+</WithSyntaxHighlighting>
+
+</Layout>
