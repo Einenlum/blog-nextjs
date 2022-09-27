@@ -1,0 +1,44 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W38',
+    publishedAt: new Date(2022, 8, 27),
+}
+
+<WithSyntaxHighlighting languages={['php', 'python']}>
+<ArticleInfos meta={meta} />
+
+Nothing special during Week 37 (not really into computers right now… a lot of bouldering and photography instead, which is nice too!).
+
+## Cron - Mysql
+
+Mysql has a native [event system](https://dev.mysql.com/doc/refman/5.7/en/create-event.html) which can be quite useful if you want to update something on your database without using some cron and backend logic. You will have to use the [pg_cron](https://github.com/citusdata/pg_cron) extension if you want the same behavior on Postgres. Thanks [Olivier](https://devblog.dunsap.com/) for this discovery!
+
+## PHP - Migrations
+
+Most web frameworks have their own migration tool (Laravel, Symfony, Django…). [Phinx](https://phinx.org/) is a PHP framework agnostic migration tool. Looks quite interesting and can be useful if you are working on an old project with no framework.
+
+## Python - Equality
+
+Python supports multiple equality comparison whereas PHP doesn't.
+
+Python:
+
+```python
+1.0 == 1 == 1.00 # True
+```
+
+PHP
+
+```php
+# Parse error:  syntax error, unexpected token "==" in php shell code on line 1
+1.0 == 1 == 1.00;
+```
+
+</WithSyntaxHighlighting>
+
+</Layout>
