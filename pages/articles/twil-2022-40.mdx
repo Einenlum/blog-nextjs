@@ -1,0 +1,29 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W40',
+    publishedAt: new Date(2022, 9, 11),
+}
+
+<ArticleInfos meta={meta} />
+
+## Exif
+
+[Exif](https://en.wikipedia.org/wiki/Exif) is available on JPG and TIFF but not on PNG. It's quite a legacy standard and its implementation [has quite a number of drawbacks](https://en.wikipedia.org/wiki/Exif#Problems).
+
+## Versioning
+
+Aside from semver, [calver](https://nehckl0.medium.com/semver-and-calver-2-popular-software-versioning-schemes-96be80efe36) exists.
+
+## Regex - AI
+
+This [website](https://www.autoregex.xyz/) tries to create a regex from an English sentence explaining the target.
+
+## Vim
+
+Pressing `vi}` in vim will highlight everything in between previous and next curly brackets.
+
+</Layout>
