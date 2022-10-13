@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Einenlum</title>
+        <link>https://einenlum.com</link>
+        <description>Personal website and blog</description>
+        <lastBuildDate>Thu, 13 Oct 2022 14:53:55 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>Feed for Node.js</generator>
+        <copyright>All rights reserved 2022, Yann Rabiller</copyright>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W40]]></title>
+            <link>https://einenlum.com/articles/twil-2022-40</link>
+            <guid>https://einenlum.com/articles/twil-2022-40</guid>
+            <pubDate>Mon, 10 Oct 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Exif, Versioning, Regex, Vim.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W39]]></title>
+            <link>https://einenlum.com/articles/twil-2022-39</link>
+            <guid>https://einenlum.com/articles/twil-2022-39</guid>
+            <pubDate>Sun, 02 Oct 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Swagger, Python, Git.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W38]]></title>
+            <link>https://einenlum.com/articles/twil-2022-38</link>
+            <guid>https://einenlum.com/articles/twil-2022-38</guid>
+            <pubDate>Mon, 26 Sep 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Cron, MySQL, PHP, Python.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W36]]></title>
+            <link>https://einenlum.com/articles/twil-2022-36</link>
+            <guid>https://einenlum.com/articles/twil-2022-36</guid>
+            <pubDate>Tue, 13 Sep 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about CSS, Randomness, Apple, Functional Programming.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W32]]></title>
+            <link>https://einenlum.com/articles/twil-2022-32</link>
+            <guid>https://einenlum.com/articles/twil-2022-32</guid>
+            <pubDate>Sun, 14 Aug 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Databases, React, Solid, CRUD, BREAD, Serialization.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W31]]></title>
+            <link>https://einenlum.com/articles/twil-2022-31</link>
+            <guid>https://einenlum.com/articles/twil-2022-31</guid>
+            <pubDate>Sat, 06 Aug 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Python, Pedantic, Poetry, Pip, PyPI, CSS, Fonts.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W30]]></title>
+            <link>https://einenlum.com/articles/twil-2022-30</link>
+            <guid>https://einenlum.com/articles/twil-2022-30</guid>
+            <pubDate>Mon, 01 Aug 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Python, Databases, Iterators, PHP.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[This Week I Learned: 2022W28]]></title>
+            <link>https://einenlum.com/articles/twil-2022-28</link>
+            <guid>https://einenlum.com/articles/twil-2022-28</guid>
+            <pubDate>Tue, 12 Jul 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[TWIL about Postgres, PDF, PHP, CSS, Tailwind, React.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[My blog is back]]></title>
+            <link>https://einenlum.com/articles/blog-is-back</link>
+            <guid>https://einenlum.com/articles/blog-is-back</guid>
+            <pubDate>Wed, 06 Jul 2022 22:00:00 GMT</pubDate>
+            <description><![CDATA[After a few years of non writing, I'm back. On a blog I own.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[A free CI (using Docker-Compose) for your Gitlab repositories?]]></title>
+            <link>https://einenlum.com/articles/free-ci-gitlab</link>
+            <guid>https://einenlum.com/articles/free-ci-gitlab</guid>
+            <pubDate>Wed, 03 Oct 2018 22:00:00 GMT</pubDate>
+            <description><![CDATA[Gitlab offers good service but their documentation is not so easy to follow and understand. Here is how to use docker-compose on Gitlab, and how to have a free CI]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Testing your app with docker-compose on CircleCI]]></title>
+            <link>https://einenlum.com/articles/docker-compose-circle-ci</link>
+            <guid>https://einenlum.com/articles/docker-compose-circle-ci</guid>
+            <pubDate>Mon, 01 Oct 2018 22:00:00 GMT</pubDate>
+            <description><![CDATA[CircleCI allows to use docker, but it's not that simple to use docker-compose with their service. This article shows how.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Job offers: Don’t get lost along the way]]></title>
+            <link>https://einenlum.com/articles/job-offers-dont-get-lost</link>
+            <guid>https://einenlum.com/articles/job-offers-dont-get-lost</guid>
+            <pubDate>Mon, 08 Jan 2018 23:00:00 GMT</pubDate>
+            <description><![CDATA[Sometimes I wonder what happened between the moment when recruiters started to think about a vacant job position and when they decide to promote a job offer. Small rant.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Lessons learned about Bus Factor (Part 5/5): Detect it before it is too late]]></title>
+            <link>https://einenlum.com/articles/bus-factor-5</link>
+            <guid>https://einenlum.com/articles/bus-factor-5</guid>
+            <pubDate>Sat, 30 Sep 2017 22:00:00 GMT</pubDate>
+            <description><![CDATA[In the previous articles we talked about different strategies to keep a balance in your team and avoid giving all the responsibility to one developer. But can we detect when the project starts to take the wrong direction? Can we find a test to prove things are improving?]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Lessons learned about Bus Factor (Part 4/5): Stay close to the domain]]></title>
+            <link>https://einenlum.com/articles/bus-factor-4</link>
+            <guid>https://einenlum.com/articles/bus-factor-4</guid>
+            <pubDate>Fri, 29 Sep 2017 22:00:00 GMT</pubDate>
+            <description><![CDATA[Writing good code is not only about architectural patterns. It's always linked to your final users and to the domain you are working for.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Lessons learned about Bus Factor (Part 3/5): Write explicit code]]></title>
+            <link>https://einenlum.com/articles/bus-factor-3</link>
+            <guid>https://einenlum.com/articles/bus-factor-3</guid>
+            <pubDate>Thu, 28 Sep 2017 22:00:00 GMT</pubDate>
+            <description><![CDATA[This article shows how to refactor code to make it more explicit and help the next developer who will read your work]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Lessons learned about Bus Factor (2/5): Balancing the level of your team]]></title>
+            <link>https://einenlum.com/articles/bus-factor-2</link>
+            <guid>https://einenlum.com/articles/bus-factor-2</guid>
+            <pubDate>Wed, 27 Sep 2017 22:00:00 GMT</pubDate>
+            <description><![CDATA[What are the non technical measures you can take to improve your Bus Factor?]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Lessons learned about Bus Factor (1/5): Introduction]]></title>
+            <link>https://einenlum.com/articles/bus-factor-1</link>
+            <guid>https://einenlum.com/articles/bus-factor-1</guid>
+            <pubDate>Tue, 26 Sep 2017 22:00:00 GMT</pubDate>
+            <description><![CDATA[What is Bus Factor? We will here introduce the notion and how it can be useful to your organization.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+        <item>
+            <title><![CDATA[Learning a foreign language — Common mistakes]]></title>
+            <link>https://einenlum.com/articles/learning-a-foreign-language</link>
+            <guid>https://einenlum.com/articles/learning-a-foreign-language</guid>
+            <pubDate>Thu, 17 Aug 2017 22:00:00 GMT</pubDate>
+            <description><![CDATA[I have been learning German since some time now. Here is what I learned.]]></description>
+            <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
+        </item>
+    </channel>
+</rss>

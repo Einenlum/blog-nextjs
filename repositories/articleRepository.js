@@ -18,7 +18,7 @@ export async function getArticles() {
     }).map(meta => {
         return {
             ...meta,
-            publishedAt: meta.publishedAt.toDateString(),
+            publishedAt: meta.publishedAt,
             link: `articles/${meta.filename.replace('.mdx', '')}`
         }
     })
