@@ -1,3 +1,20 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W41',
+    publishedAt: new Date(2022, 9, 17),
+    description:
+        'TWIL about Python, PHP, Sorting, TUI, Tailwind, Interesting Github Repositories, Rust.',
+}
+
+<WithSyntaxHighlighting languages={['python', 'php']}>
+
+<ArticleInfos meta={meta} />
+
 ## Sorting - PHP - Python
 
 In Python, as well as in PHP, by default, sorting is done respecting ASCII order and not alphabetical order.
@@ -33,7 +50,7 @@ But with `a != b != c` it's transformed into `a != b and b != c`. Which is not t
 
 Indeed, if `a` and `c` are the same, this is `True`: `'a' != 'b' != 'a'`. If we change the order, it's then `False`: `'a' != 'a' != 'b'`.
 
-Found again in Al Sweigart's book.
+Also found in Al Sweigart's book.
 
 ## PHP - Terminal - Tailwind
 
@@ -42,3 +59,11 @@ Found again in Al Sweigart's book.
 ## Build you own thing
 
 A Github repository called [build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) provides a list of technologies (bots, databases, docker…) rebuilt from scratch in several languages. Quite an interesting list.
+
+## Rust - Memory
+
+Rust has the concept of ownership and borrowing. Never read something like this elsewhere before. Sounds really interesting (and confusing for now to me).
+
+</WithSyntaxHighlighting>
+
+</Layout>
