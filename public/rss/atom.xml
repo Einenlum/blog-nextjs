@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://einenlum.com</id>
     <title>Einenlum</title>
-    <updated>2022-10-13T14:53:55.937Z</updated>
+    <updated>2022-10-17T13:36:33.787Z</updated>
     <generator>Feed for Node.js</generator>
     <author>
         <name>Yann Rabiller</name>
@@ -14,6 +14,23 @@
     <subtitle>Personal website and blog</subtitle>
     <icon>https://einenlum.com/favicon.png</icon>
     <rights>All rights reserved 2022, Yann Rabiller</rights>
+    <entry>
+        <title type="html"><![CDATA[This Week I Learned: 2022W41]]></title>
+        <id>https://einenlum.com/articles/twil-2022-41</id>
+        <link href="https://einenlum.com/articles/twil-2022-41"/>
+        <updated>2022-10-16T22:00:00.000Z</updated>
+        <summary type="html"><![CDATA[TWIL about Python, PHP, Sorting, TUI, Tailwind, Interesting Github Repositories, Rust.]]></summary>
+        <author>
+            <name>Yann Rabiller</name>
+            <email>yann.rabiller@gmail.com</email>
+            <uri>https://twitter.com/Einenlum</uri>
+        </author>
+        <contributor>
+            <name>Yann Rabiller</name>
+            <email>yann.rabiller@gmail.com</email>
+            <uri>https://twitter.com/Einenlum</uri>
+        </contributor>
+    </entry>
     <entry>
         <title type="html"><![CDATA[This Week I Learned: 2022W40]]></title>
         <id>https://einenlum.com/articles/twil-2022-40</id>
