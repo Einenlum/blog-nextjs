@@ -1,0 +1,60 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W42',
+    publishedAt: new Date(2022, 9, 24),
+    description: 'TWIL about Rust, Git and fzf.',
+}
+
+<WithSyntaxHighlighting languages={['rust']}>
+
+<ArticleInfos meta={meta} />
+
+## Rust - Order of execution
+
+It seems like in Rust, the order of execution is sometimes unusual.
+
+Consider this piece of code:
+
+```rust
+let guess: u32 = "42".parse().expect("Not a number!");
+```
+
+Let's omit the `expect` method (which is really interesting) here.
+
+If we don't use the type annotation (`u32`), there is a compiler error because Rust doesn't know how to parse the string:
+
+```rust
+// Won't compile
+let guess = "42".parse().expect("Not a number!");
+```
+
+In other languages you might expect something like a parameter of the `parse` function to indicate the target type:
+
+```rust
+let guess = "42".parse(u32).expect("Not a number!");
+```
+
+Here, the type annotation which is on the **left** side of the evaluation, changes what happens on the right part of the line. It's very unusual and confusing to me.
+
+## fzf - Git
+
+[fzf](https://github.com/junegunn/fzf) has a multi select line when adding the `-m` option. Then you can use `Tab` to select multiple entries.
+
+If you add this into your `.gitconfig` file, you can then use `git fd` to delete multiple branches at once by selecting them. So lovely.
+
+```
+[alias]
+    # Delete branches from your recent used ones
+    fd = "!f() { git branch -a --sort=-committerdate | grep -v remotes\\/ | fzf -m | sed 's/remotes\\/origin\\///' | xargs -o git br -D; }; f"
+```
+
+You can see it in action [here](https://asciinema.org/a/531520).
+
+</WithSyntaxHighlighting>
+
+</Layout>
