@@ -1,0 +1,130 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W43',
+    publishedAt: new Date(2022, 9, 31),
+    description: 'TWIL about Vim, Rust, Containers and UNIX.',
+}
+
+<WithSyntaxHighlighting languages={['rust']}>
+
+<ArticleInfos meta={meta} />
+
+## Vim - Terminal
+
+Neovim can spawn a new shell instance (with your usual bash/zsh config) with `:terminal` or `:te`.
+
+I thought it's quite useless since I use i3 and I'm happy with my wm and my way of jumping between windows and desktops. It can be actually super useful because it means you can use your vim motions and copy paste exactly what you want (as you would do in a buffer) from the shell.
+
+Amazing! You [can't edit the buffer](https://github.com/neovim/neovim/issues/8805) though (too bad).
+
+If you want to leave the terminal mode you need to use `CTRL+\ CTRL+n`. Really not great. And didn't work with my custom config.
+
+To remap this, you can add this into your .vimrc:
+
+```
+" Map esc and ctrl c to leave terminal mode
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-c> <C-\><C-n>
+```
+
+## Vim - Buffers
+
+To create a new buffer without file (as you get when pressing `e` on startup) you can use `:enew` to have a no file buffer in the current window or `:new` to create a new buffer in a new window.
+
+## Rust - Type inference
+
+I found out [last week](/articles/twil-2022-42) that Rust can decide the type of the variable, based on what is on left side of the assignment.
+
+Actually it's even **crazier** than that.
+
+Consider this piece of code:
+
+```rust
+use std::convert::TryInto;
+
+fn main() {
+    let a: u8 = 12;
+    let b: i16 = 4;
+
+    let c = b.try_into().unwrap();
+
+    println!("{a}, {b}, {c}");
+}
+```
+
+This piece of code won't compile, because it doesn't know what to cast `b` to.
+
+```
+error[E0282]: type annotations needed
+ --> src/main.rs:7:9
+  |
+7 |     let c = b.try_into().unwrap();
+  |         ^
+  |
+help: consider giving `c` an explicit type
+  |
+7 |     let c: _ = b.try_into().unwrap();
+  |          +++
+```
+
+But if you then try to compare `a` and `c` (later in the code!):
+
+```rust
+use std::convert::TryInto;
+
+fn main() {
+    let a: u8 = 12;
+    let b: i16 = 4;
+
+    let c = b.try_into().unwrap();
+
+    if a > c {
+        println!("It's bigger");
+    }
+
+    println!("{a}, {b}, {c}");
+}
+```
+
+`c` is transformed into a `u8` in the line `let c = b.try_into().unwrap();`, knowing what comes next.
+
+```
+It's bigger
+12, 4, 4
+```
+
+It's just the very beginning of my rust journey but it's honestly really challenging.
+
+## Singularity - Containers
+
+I knew Docker (which I use on an everyday basis) and LXC but I didn't know [Singularity](<https://en.wikipedia.org/wiki/Singularity_(software)>) which seems a containerization competitor.
+
+## $PATH - Unix
+
+I know that the current directory is never in the `$PATH`, that's why we need to use `./foo` to execute the `foo` file in the current directory. I never thought about the why. I just learned about it in [Command-Line Rust](https://www.oreilly.com/library/view/command-line-rust/9781098109424/) from Ken Youens-Clark.
+
+> The current working directory is never included in this variable, to prevent malicious code from being surreptitiously executed. For instance, a bad actor could create a program named `ls` that executes `rm -rf /` in an attempt to delete your entire filesystem.
+
+Interesting!
+
+## Unix - Split lines
+
+To split a string you can use `tr` (for _translate characters_). For example, to split a `$PATH` string (following the shape `/foo/bar1:/foo/bar2:/foo/bar3`), you can use:
+
+```
+echo $PATH | tr : '\n'
+/usr/local/sbin
+/usr/local/bin
+/usr/sbin
+/usr/bin
+...
+```
+
+</WithSyntaxHighlighting>
+
+</Layout>
