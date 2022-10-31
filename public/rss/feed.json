@@ -10,6 +10,17 @@
     },
     "items": [
         {
+            "id": "https://einenlum.com/articles/twil-2022-43",
+            "url": "https://einenlum.com/articles/twil-2022-43",
+            "title": "This Week I Learned: 2022W43",
+            "summary": "TWIL about Vim, Rust, Containers and UNIX.",
+            "date_modified": "2022-10-30T23:00:00.000Z",
+            "author": {
+                "name": "Yann Rabiller",
+                "url": "https://twitter.com/Einenlum"
+            }
+        },
+        {
             "id": "https://einenlum.com/articles/twil-2022-42",
             "url": "https://einenlum.com/articles/twil-2022-42",
             "title": "This Week I Learned: 2022W42",
