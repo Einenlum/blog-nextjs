@@ -1,0 +1,111 @@
+import Layout from '../../components/layout'
+import ArticleInfos from '../../components/article-infos'
+import WithSyntaxHighlighting from '../../components/with-syntax-highlighting'
+
+<Layout>
+
+export const meta = {
+    articleTitle: 'This Week I Learned: 2022W44',
+    publishedAt: new Date(2022, 10, 7),
+    description: 'TWIL about Neovim, Git, Lua, Cat, PHP, Laravel.',
+}
+
+<WithSyntaxHighlighting languages={['php']}>
+
+<ArticleInfos meta={meta} />
+
+## Cat
+
+I had always used `cat` to print the content of a file. I just learned that `cat` is for `conCATenate`. It allows to print the content of multiple files and to possibly pipe it to another file / process.
+
+```
+cat file1 file2 file3
+```
+
+will print the content of each file in order, concatenated.
+
+## PHP
+
+PHP has `endif`, `endwhile`, `endfor`, `endforeach` and `endswitch` statements.
+
+Can be useful if you are mixing PHP and HTML (which you absolutely shouldn't of course):
+
+```php
+<?php if ($a == 5): ?>
+A is equal to 5
+<?php endif; ?>
+```
+
+And with `if`:
+
+```php
+
+<?php
+if ($a == 5):
+    echo "a equals 5";
+    echo "...";
+elseif ($a == 6):
+    echo "a equals 6";
+    echo "!!!";
+else:
+    echo "a is neither 5 nor 6";
+endif;
+?>
+```
+
+Reminds a bit of ruby with its `if ... end`. Funny.
+
+Examples taken from [official documentation](https://www.php.net/manual/en/control-structures.alternative-syntax.php). I worked with PHP for years and had never encountered this syntax. I's probably a good sign ;).
+
+## Git
+
+This [git plugin](https://github.com/PotatoLabs/git-redate) (`git-redate`) allows to easily change the datetime of some past commits.
+
+## Vim - Neovim - Lua
+
+You can have a `lua` folder in your `~/.config/nvim` folder which will make these scripts discoverable.
+
+Then you can have multiple levels of files:
+
+```
+├── init.vim
+├── lua
+│   ├── einenlum
+│   │   ├── init.lua
+```
+
+Everything in `lua/einenlum/init.lua` will automatically be loaded when requiring `einenlum` in my `init.vim` file (VimL script):
+
+```VimL
+lua require('einenlum')
+```
+
+This is kind of equivalent to what Python has with packages and `__init__.py` files.
+
+You can check a bit more how it works in my [dotfiles](https://github.com/Einenlum/dotfiles-manjaro/blob/2873c3acc956a00452d7056c26f341c0d17d8eff/nvim/init.vim#L12).
+
+## Vim - Neovim
+
+I have used vim for many years now but I didn't know `_` (underscore) leads to the "real" beginning of the line (compared to `0`).
+
+## Laravel - Mocking time in tests
+
+In Laravel, if you want to change the current time, you can use `$this->travelTo`.
+It accepts `Carbon` and `DateTimeInterface` objects, closures are strings.
+
+```php
+$this->travelTo('2022-11-06');
+$this->travelTo(\DateTimeImmutable::createFromFormat('Y-m-d', '2022-11-06'));
+```
+
+## Laravel - Blade - Components
+
+Blade, Laravel's templating engine, allows to natively create [components](https://laravel.com/docs/9.x/blade#components). Every template in `resources/views/components` (ex: `my-card.blade.php`) can then be called in another template (ex: `<x-my-card></x-mx-card>`).
+
+You can pass children components that will be accessible through `{{ $slots }}` (equivalent to React's `{{ children }}`).
+
+Twig also has [components](https://symfony.com/bundles/ux-twig-component/current/index.html).
+
+</WithSyntaxHighlighting>
+
+</Layout>
