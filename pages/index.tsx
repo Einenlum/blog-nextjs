@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import ALink from '../components/a-link'
 import ArticlesContainer from '../components/index/articles-container'
-import { getArticles } from '../repositories/articleRepository'
+import { getArticles, ArticleInterface } from '../repositories/articleRepository'
 import { generateRssFeed, writeFeed } from '../repositories/feedGenerator'
 
 export async function getStaticProps() {
@@ -23,7 +23,7 @@ export async function getStaticProps() {
     }
 }
 
-export default function Home({ articles }) {
+export default function Home({ articles }: { articles: ArticleInterface[] }) {
     return (
         <>
             <Layout>

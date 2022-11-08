@@ -4,7 +4,7 @@
         <title>Einenlum</title>
         <link>https://einenlum.com</link>
         <description>Personal website and blog</description>
-        <lastBuildDate>Mon, 07 Nov 2022 10:21:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 08 Nov 2022 22:48:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Feed for Node.js</generator>
         <copyright>All rights reserved 2022, Yann Rabiller</copyright>
@@ -13,7 +13,7 @@
             <link>https://einenlum.com/articles/twil-2022-44</link>
             <guid>https://einenlum.com/articles/twil-2022-44</guid>
             <pubDate>Sun, 06 Nov 2022 23:00:00 GMT</pubDate>
-            <description><![CDATA[TWIL about Neovim, Lua, Cat, PHP, Laravel.]]></description>
+            <description><![CDATA[TWIL about Neovim, Git, Lua, Cat, PHP, Laravel.]]></description>
             <author>yann.rabiller@gmail.com (Yann Rabiller)</author>
         </item>
         <item>
