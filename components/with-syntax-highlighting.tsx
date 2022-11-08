@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import hljs from 'highlight.js'
+import hljs, { LanguageFn } from 'highlight.js'
 import php from 'highlight.js/lib/languages/php'
 import gherkin from 'highlight.js/lib/languages/gherkin'
 import yaml from 'highlight.js/lib/languages/yaml'
@@ -7,8 +7,11 @@ import python from 'highlight.js/lib/languages/python'
 import toml from 'highlight.js/lib/languages/ini'
 import rust from 'highlight.js/lib/languages/rust'
 
+interface MappingInterface {
+    [key: string]: LanguageFn
+}
 
-const mapping = {
+const mapping: MappingInterface = {
     'php': php,
     'python': python,
     'gherkin': gherkin,
@@ -18,8 +21,8 @@ const mapping = {
     'toml': toml
 }
 
-export default function WithSyntaxHighlighting({languages, children}) {
-    languages.forEach(language => hljs.registerLanguage(language, mapping[language]))
+export default function WithSyntaxHighlighting({languages, children}: {languages: (keyof MappingInterface)[], children: any}) {
+    languages.forEach(language => hljs.registerLanguage(language as string, mapping[language]))
     useEffect(() => {
         hljs.initHighlighting();
     }, []);

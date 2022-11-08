@@ -1,6 +1,6 @@
-import ALink from './a-link.jsx';
+import ALink from './a-link';
 
-function getLicense(license) {
+function getLicense(license: string|undefined): string {
     if (!license) {
         return '';
     }
@@ -8,7 +8,14 @@ function getLicense(license) {
     return '(license ' + license + ')';
 }
 
-export default function ImageSource({author, imageName, license, source}) {
+interface Props {
+    author: string,
+    imageName: string,
+    license?: string,
+    source: string
+}
+
+export default function ImageSource({author, imageName, license, source}: Props) {
     return  (
         <div className="max-w-sm mx-auto text-sm lg:text-base">
             {imageName

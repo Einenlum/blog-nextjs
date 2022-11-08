@@ -1,10 +1,14 @@
 import Image from 'next/image'
-import ImageSource from './image-source'
 
-export default function SourcedImage({src, author, imageName, license, source, alt}) {
+interface Props {
+    src: string,
+    alt: string
+}
+
+export default function NonSourcedImage({src, alt}: Props) {
     return (
-        <div className="my-10 mx-auto">
-            <div className="text-center">
+        <div className="my-10">
+            <div className="">
                 <Image
                     src={src}
                     alt={alt}
@@ -14,7 +18,6 @@ export default function SourcedImage({src, author, imageName, license, source, a
                     height={400}
                 />
             </div>
-            <ImageSource author={author} imageName={imageName} license={license} source={source} alt={alt}></ImageSource>
         </div>
     )
 }

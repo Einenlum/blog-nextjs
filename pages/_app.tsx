@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import 'highlight.js/styles/default.css';
 
 import { MDXProvider } from '@mdx-js/react'
+import type { AppProps } from 'next/app'
 
 import PageTitle from '../components/page-title'
 import LiElement from '../components/li-element'
@@ -23,9 +24,11 @@ const components = {
   pre: Pre
 }
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MDXProvider components={components}>
+    // Not sure how "any" makes it work here, but it's the only thing I found.
+    // (don't worry, I'm an expert programmer. *coughs*)
+    <MDXProvider components={components as any}>
       <Component {...pageProps} />
   </MDXProvider>
   )
