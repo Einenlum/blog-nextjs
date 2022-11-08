@@ -1,9 +1,8 @@
 import fs from "fs";
 import { Feed } from "feed"
-import { getArticles } from "./articleRepository"
+import { ArticleInterface } from "./articleRepository";
 
-export const generateRssFeed = async () => {
-    const articles = await getArticles();
+export const generateRssFeed = async (articles: ArticleInterface[]) => {
     const siteURL = 'https://einenlum.com';
     const date = new Date();
   
@@ -78,7 +77,7 @@ export const generateRssFeed = async () => {
   };
 
 
-export const writeFeed = (feed) => {
+export const writeFeed = (feed: Feed) => {
     const rootDir = process.cwd();
 
     fs.mkdirSync(`${rootDir}/public/rss`, { recursive: true });

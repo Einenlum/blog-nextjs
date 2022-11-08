@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://einenlum.com</id>
     <title>Einenlum</title>
-    <updated>2022-11-07T10:21:00.687Z</updated>
+    <updated>2022-11-08T22:48:31.153Z</updated>
     <generator>Feed for Node.js</generator>
     <author>
         <name>Yann Rabiller</name>
@@ -19,7 +19,7 @@
         <id>https://einenlum.com/articles/twil-2022-44</id>
         <link href="https://einenlum.com/articles/twil-2022-44"/>
         <updated>2022-11-06T23:00:00.000Z</updated>
-        <summary type="html"><![CDATA[TWIL about Neovim, Lua, Cat, PHP, Laravel.]]></summary>
+        <summary type="html"><![CDATA[TWIL about Neovim, Git, Lua, Cat, PHP, Laravel.]]></summary>
         <author>
             <name>Yann Rabiller</name>
             <email>yann.rabiller@gmail.com</email>
