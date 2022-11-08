@@ -3,7 +3,7 @@ import Image from 'next/image';
 import ALink from './a-link';
 import { useState, useEffect } from 'react';
 
-export default function Layout({ children, showFeed = true }) {
+export default function Layout({ children, showFeed = true }: { children: any, showFeed?: boolean }) {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {

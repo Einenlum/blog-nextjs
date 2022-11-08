@@ -1,7 +1,8 @@
 import HeaderElement from './header-element'
+import { Element } from './header-element'
 
 export default function Header() {
-    const elements = [
+    const elements: Element[] = [
         { text: 'Blog', path: '/' },
         { text: 'About', path: '/about' },
     ]
