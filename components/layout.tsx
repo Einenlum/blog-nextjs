@@ -31,7 +31,7 @@ export default function Layout({ children, showFeed = true }: { children: any, s
         {
           showFeed
           ? <div className="mt-14 sm:mt-24 text-sm text-right mr-4">
-                <ALink href="/rss"><span><Image src={image} width="10" height="10"></Image> Feeds</span></ALink>
+                <ALink href="/rss"><span><Image src={image} width="10" height="10" alt="The RSS icon"></Image> Feeds</span></ALink>
             </div>
           : null
         }
