@@ -29,6 +29,7 @@ export default function Home({ articles }: { articles: ArticleInterface[] }) {
             <Layout>
                 <Head>
                     <title>{"Einenlum's blog"}</title>
+                    <meta name="description" content="Einenlum's personal blog. Here we talk about PHP, Python, Rust, and programming in general." />
                 </Head>
 
                 <ArticlesContainer articles={articles}></ArticlesContainer>

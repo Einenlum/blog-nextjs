@@ -8,6 +8,7 @@ export default function ArticleInfos({meta}: {meta: Meta}) {
         <>
             <Head>
                 <title>{meta.articleTitle}</title>
+                <meta name="description" content={meta.description} />
             </Head>
             <ArticleHeader date={meta.publishedAt}>
                 <PageTitle>{meta.articleTitle}</PageTitle>
