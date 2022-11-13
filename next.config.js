@@ -5,6 +5,14 @@ const nextConfig = {
   experimental: {
     images: {
       allowFutureImage: true,
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'res.cloudinary.com',
+          port: '',
+          pathname: '/**'
+        }
+      ]
     },
   },
 }

@@ -19,8 +19,9 @@ export default function Layout({ children, showFeed = true }: { children: any, s
     }
   }, []);
 
-  const filename = darkMode ? 'rss-white' : 'rss';
-  const image = `/images/${filename}.png`
+  const image = darkMode
+    ? 'https://res.cloudinary.com/dybam16gk/image/upload/v1668335093/blog_images/rss-white_eyvvye.png'
+    : 'https://res.cloudinary.com/dybam16gk/image/upload/v1668335093/blog_images/rss_zp3rq2.png';
   
   return (
     <>
